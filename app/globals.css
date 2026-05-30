@@ -125,3 +125,31 @@
     color: var(--color-foreground);
   }
 }
+
+@layer utilities {
+  /* Range slider styling */
+  .settings-slider {
+    @apply w-full h-1 bg-surface-variant rounded-lg appearance-none cursor-pointer;
+  }
+  .settings-slider::-webkit-slider-thumb {
+    @apply appearance-none h-5 w-5 rounded-full bg-primary cursor-pointer -mt-2 shadow-sm;
+  }
+  .settings-slider::-webkit-slider-runnable-track {
+    @apply w-full h-1 cursor-pointer bg-surface-variant rounded-sm;
+  }
+  .settings-slider:focus::-webkit-slider-runnable-track {
+    @apply bg-surface-container-high;
+  }
+
+  /* Toggle styling */
+  .toggle-checkbox:checked {
+    right: 0;
+    border-color: #002b73;
+  }
+  .toggle-checkbox:checked + .toggle-label {
+    background-color: #002b73;
+  }
+  .toggle-checkbox:focus + .toggle-label {
+    box-shadow: 0 0 0 2px #b2c5ff;
+  }
+}

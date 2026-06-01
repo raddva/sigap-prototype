@@ -1,49 +1,46 @@
+// src/app/screens/ai-insights/components/RecommendationFeed.tsx
+import React from 'react';
 import { recommendations } from '../data';
 
 export default function RecommendationFeed() {
   return (
-    <section className="flex flex-col gap-space-6">
-      <h2 className="font-headline-md text-headline-md text-on-surface">Priority Recommendations</h2>
-      
-      <div className="bg-surface-container-low rounded-xl p-space-6 flex flex-col gap-space-6">
+    <div className="flex flex-col gap-4">
+      <h2 className="text-xl font-bold text-gray-900 mb-2" style={{ fontFamily: "Public Sans, sans-serif" }}>
+        Priority Recommendations
+      </h2>
+      <div className="bg-[#f3f4f6] p-4 rounded-2xl flex flex-col gap-4 border border-gray-200">
         {recommendations.map((rec) => (
-          <div 
-            key={rec.id} 
-            className="bg-surface-container-lowest rounded-xl p-space-6 shadow-[0_12px_32px_-4px_rgba(25,28,29,0.06)] flex flex-col md:flex-row items-start md:items-center justify-between border border-outline-variant/20 hover:border-primary/30 transition-colors group cursor-pointer gap-space-4 md:gap-0"
-          >
-            <div className="flex gap-space-6">
-              <div className={`w-12 h-12 shrink-0 rounded-full ${rec.avatarBg} flex items-center justify-center ${rec.avatarColor} font-headline-md text-headline-md`}>
-                {rec.initials}
+          <div key={rec.id} className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex flex-col md:flex-row items-start justify-between gap-4">
+            <div className="flex gap-4">
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm shrink-0 ${rec.avatarBg} ${rec.avatarColor}`}>
+                {rec.id}
               </div>
-              <div className="flex flex-col gap-space-2">
-                <div className="flex flex-col sm:flex-row sm:items-center gap-space-2">
-                  <h3 className="font-label-lg text-label-lg text-on-surface">{rec.name}</h3>
-                  <div className={`${rec.tagStyle} px-space-2 py-0.5 rounded-full font-label-sm text-label-sm flex items-center gap-space-1 w-max`}>
-                    <span className="material-symbols-outlined text-[14px]">{rec.tagIcon}</span>
-                    {rec.tagText}
-                  </div>
+              <div>
+                <div className="flex flex-wrap items-center gap-3 mb-2">
+                  <h3 className="font-bold text-gray-900">{rec.name}</h3>
+                  <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-bold ${rec.tagStyle}`}>
+                    <span className="material-symbols-outlined text-[14px]">{rec.tagIcon}</span> {rec.tagText}
+                  </span>
                 </div>
-                <p className="font-body-md text-body-md text-on-surface-variant max-w-md">
-                  {rec.description}
+                <p className="text-sm text-gray-600 mb-4 max-w-2xl leading-relaxed">
+                  {rec.desc}
                 </p>
-                <div className="flex items-center gap-space-4 mt-space-2">
-                  <div className="bg-surface-container-high px-space-2 py-0.5 rounded flex items-center gap-space-1">
-                    <span className="material-symbols-outlined text-[14px] text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>psychology</span>
-                    <span className="font-label-sm text-label-sm text-on-surface">AI Recommended</span>
-                  </div>
-                  <div className="font-label-sm text-label-sm text-secondary flex items-center gap-space-1">
-                    <span className="material-symbols-outlined text-[14px]">target</span>
-                    {rec.confidence} Confidence
-                  </div>
+                <div className="flex items-center gap-4">
+                  <span className="inline-flex items-center gap-1 bg-gray-100 text-[#002b73] px-2 py-1 rounded text-xs font-bold">
+                    <span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>psychology</span> AI Recommended
+                  </span>
+                  <span className="inline-flex items-center gap-1 text-[#1b6d24] text-xs font-bold">
+                    <span className="material-symbols-outlined text-[14px]">verified</span> {rec.confidence} Confidence
+                  </span>
                 </div>
               </div>
             </div>
-            <button className="shrink-0 font-label-lg text-label-lg text-primary hover:bg-surface-container-low px-space-4 py-space-2 rounded-xl transition-colors">
+            <button className="shrink-0 text-[#0056D2] font-bold text-sm hover:bg-blue-50 px-4 py-2 rounded-lg transition-colors">
               Review Case
             </button>
           </div>
         ))}
       </div>
-    </section>
+    </div>
   );
 }

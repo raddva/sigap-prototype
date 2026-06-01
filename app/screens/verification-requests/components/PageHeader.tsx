@@ -1,22 +1,31 @@
+// src/app/screens/verification-requests/components/PageHeader.tsx
+import React from 'react';
+
 export default function PageHeader() {
   return (
-    <div className="flex flex-col md:flex-row md:items-end justify-between gap-space-6">
+    <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 mt-4">
       <div>
-        <h2 className="text-headline-lg font-headline-lg text-on-surface mb-2">Verification Requests</h2>
-        <p className="text-body-lg font-body-lg text-on-surface-variant">Monitor and manage automated WhatsApp verification requests.</p>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2" style={{ fontFamily: "Public Sans, sans-serif" }}>
+          Verification Requests
+        </h1>
+        <p className="text-[15px] text-gray-600">
+          Monitor and manage automated WhatsApp verification requests.
+        </p>
       </div>
-      <div className="flex flex-wrap gap-space-4">
-        <div className="flex items-center gap-2 bg-secondary-container/30 px-3 py-1.5 rounded-full">
-          <span className="w-2 h-2 rounded-full bg-secondary"></span>
-          <span className="text-label-sm font-label-sm text-on-surface">WhatsApp System Active</span>
+      
+      {/* Badges */}
+      <div className="flex flex-wrap gap-3">
+        <div className="flex items-center gap-1.5 bg-[#e6f4ea] text-[#1b6d24] px-3 py-1.5 rounded-full border border-[#1b6d24]/20">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#1b6d24] animate-pulse"></span>
+          <span className="text-xs font-bold">WhatsApp System Active</span>
         </div>
-        <div className="flex items-center gap-2 bg-surface-container-high px-3 py-1.5 rounded-full">
-          <span className="material-symbols-outlined text-[16px] text-primary">cable</span>
-          <span className="text-label-sm font-label-sm text-on-surface">Baileys Integration: Connected</span>
+        <div className="flex items-center gap-1.5 bg-[#e8f0fe] text-[#0056D2] px-3 py-1.5 rounded-full border border-[#0056D2]/20">
+          <span className="material-symbols-outlined text-[14px]">cable</span>
+          <span className="text-xs font-bold">Baileys Integration: Connected</span>
         </div>
-        <div className="flex items-center gap-2 bg-primary-fixed/50 px-3 py-1.5 rounded-full">
-          <span className="material-symbols-outlined text-[16px] text-primary">sync</span>
-          <span className="text-label-sm font-label-sm text-on-surface">Real-time sync</span>
+        <div className="flex items-center gap-1.5 bg-[#e8f0fe] text-[#0056D2] px-3 py-1.5 rounded-full border border-[#0056D2]/20">
+          <span className="material-symbols-outlined text-[14px]">sync</span>
+          <span className="text-xs font-bold">Real-time sync</span>
         </div>
       </div>
     </div>

@@ -1,24 +1,30 @@
-// app/screens/appeals/components/ActionBar.tsx
+// src/app/screens/appeals/components/ActionBar.tsx
+import React from 'react';
 
 export default function ActionBar() {
   return (
-    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-space-6 mb-space-8 bg-surface-container-low p-space-4 rounded-xl">
-      <div className="flex flex-wrap gap-space-2">
-        <button className="px-space-4 py-space-2 rounded-lg bg-surface-container-lowest text-on-surface font-label-sm text-label-sm border border-outline-variant hover:border-primary transition-colors flex items-center gap-space-2">
+    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 bg-[#f8f9fa] p-3 rounded-xl border border-gray-100">
+      
+      {/* Filter Buttons */}
+      <div className="flex flex-wrap gap-2">
+        <button className="px-4 py-2 rounded-lg bg-white text-gray-700 text-sm font-semibold border border-gray-200 hover:border-[#0056D2] hover:text-[#0056D2] transition-colors flex items-center gap-2 shadow-sm">
           <span className="material-symbols-outlined text-[18px]">filter_list</span> All Statuses
         </button>
-        <button className="px-space-4 py-space-2 rounded-lg bg-surface-container-lowest text-on-surface font-label-sm text-label-sm border border-outline-variant hover:border-primary transition-colors flex items-center gap-space-2">
+        <button className="px-4 py-2 rounded-lg bg-white text-gray-700 text-sm font-semibold border border-gray-200 hover:border-[#0056D2] hover:text-[#0056D2] transition-colors flex items-center gap-2 shadow-sm">
           <span className="material-symbols-outlined text-[18px]">calendar_today</span> This Month
         </button>
-        <button className="px-space-4 py-space-2 rounded-lg bg-surface-container-lowest text-on-surface font-label-sm text-label-sm border border-outline-variant hover:border-primary transition-colors flex items-center gap-space-2">
+        <button className="px-4 py-2 rounded-lg bg-white text-gray-700 text-sm font-semibold border border-gray-200 hover:border-[#0056D2] hover:text-[#0056D2] transition-colors flex items-center gap-2 shadow-sm">
           <span className="material-symbols-outlined text-[18px]">sort</span> Priority
         </button>
       </div>
-      <div className="flex gap-space-4 w-full md:w-auto">
-        <button className="flex-1 md:flex-none px-space-6 py-space-2 bg-gradient-to-r from-primary to-primary-container text-white rounded-xl font-label-lg text-label-lg shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-space-2">
+
+      {/* Action Button */}
+      <div className="w-full md:w-auto">
+        <button className="w-full md:w-auto px-5 py-2.5 bg-[#0056D2] hover:bg-[#0040a1] text-white rounded-lg text-sm font-bold shadow-sm transition-colors flex items-center justify-center gap-2">
           <span className="material-symbols-outlined text-[20px]">add</span> New Case
         </button>
       </div>
+
     </div>
   );
 }

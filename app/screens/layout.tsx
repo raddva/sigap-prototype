@@ -11,7 +11,7 @@ const SCREENS = [
   { path: "/screens/citizen-detail", title: "Citizen Detail", icon: "person" },
   { path: "/screens/analytics", title: "Analytics & Reporting", icon: "analytics" },
   { path: "/screens/ai-insights", title: "AI Insights", icon: "psychology" },
-  { path: "/screens/activity-feed", title: "Activity Feed", icon: "history" },
+  { path: "/screens/activity", title: "Activity Feed", icon: "history" },
   { path: "/screens/verification-requests", title: "Verification Requests", icon: "fact_check" },
   { path: "/screens/reports-center", title: "Reports Center", icon: "description" },
   { path: "/screens/appeals", title: "Appeals & Complaints", icon: "gavel" },

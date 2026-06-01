@@ -1,39 +1,39 @@
-export const summaryStats = [
-  { id: 1, title: 'Active Detections', value: '142', icon: 'radar', color: 'primary' },
-  { id: 2, title: 'High Priority Cases', value: '28', icon: 'priority_high', color: 'error' },
-  { id: 3, title: 'Recommended Updates', value: '85', icon: 'update', color: 'tertiary' },
-  { id: 4, title: 'Model Confidence Avg', value: '94%', icon: 'verified', color: 'secondary' },
+// src/app/screens/ai-insights/data.ts
+
+export const detectionStats = [
+  { id: 1, value: "142", label: "Active Detections", icon: "radar", iconColor: "text-[#0056D2]" },
+  { id: 2, value: "28", label: "High Priority Cases", icon: "priority_high", iconColor: "text-[#ba1a1a]" },
+  { id: 3, value: "85", label: "Recommended Updates", icon: "update", iconColor: "text-[#b06000]" },
+  { id: 4, value: "94%", label: "Model Confidence Avg", icon: "verified_user", iconColor: "text-[#1b6d24]" },
 ];
 
 export const recommendations = [
   {
-    id: 1,
-    initials: 'SW',
-    name: 'Siti Wahyuni',
-    avatarBg: 'bg-primary-fixed-dim',
-    avatarColor: 'text-primary',
-    tagIcon: 'trending_down',
-    tagText: 'Sudden income drop',
-    tagStyle: 'bg-tertiary-fixed text-on-tertiary-fixed-variant',
-    description: 'Anomaly detected in recent tax reporting paired with localized industry layoff data. High probability of assistance qualification.',
-    confidence: '96%',
+    id: "SW",
+    name: "Siti Wahyuni",
+    avatarBg: "bg-[#e8f0fe]",
+    avatarColor: "text-[#0056D2]",
+    tagText: "Sudden income drop",
+    tagStyle: "bg-[#fef7e0] text-[#b06000]",
+    tagIcon: "trending_down",
+    desc: "Anomaly detected in recent tax reporting paired with localized industry layoff data. High probability of assistance qualification.",
+    confidence: "96%",
   },
   {
-    id: 2,
-    initials: 'AS',
-    name: 'Agus Setiawan',
-    avatarBg: 'bg-surface-variant',
-    avatarColor: 'text-on-surface-variant',
-    tagIcon: 'local_hospital',
-    tagText: 'Medical dependency',
-    tagStyle: 'bg-error-container text-on-error-container',
-    description: 'Correlation found between new disability registry entry and household income stability. Proactive assistance suggested.',
-    confidence: '91%',
+    id: "AS",
+    name: "Agus Setiawan",
+    avatarBg: "bg-gray-200",
+    avatarColor: "text-gray-700",
+    tagText: "Medical dependency",
+    tagStyle: "bg-[#fce8e8] text-[#ba1a1a]",
+    tagIcon: "local_hospital",
+    desc: "Correlation found between new disability registry entry and household income stability. Proactive assistance suggested.",
+    confidence: "91%",
   },
 ];
 
 export const explainabilityFactors = [
-  { id: 1, label: 'Decrease in Income', impact: '-35%', isNegative: true, percentage: 35 },
-  { id: 2, label: 'Employment Status Change', impact: '-20%', isNegative: true, percentage: 20 },
-  { id: 3, label: 'Regional Cost of Living', impact: '+15%', isNegative: false, percentage: 15 },
+  { id: 1, label: "Decrease in Income", impact: "-35% Impact", percentage: 35, isNegative: true },
+  { id: 2, label: "Employment Status Change", impact: "-20% Impact", percentage: 20, isNegative: true },
+  { id: 3, label: "Regional Cost of Living", impact: "+15% Buffer", percentage: 15, isNegative: false },
 ];

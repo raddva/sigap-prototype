@@ -11,11 +11,9 @@ interface OverviewCardProps {
 
 export default function OverviewCard({ title, value, icon, trend, isPositive }: OverviewCardProps) {
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-5 flex flex-col justify-between shadow-sm">
-      <div className="flex justify-between items-start mb-4">
-        <div className="text-[#0056D2]">
-          <span className="material-symbols-outlined text-[24px]">{icon}</span>
-        </div>
+    <div className="bg-white rounded-xl border border-gray-200 p-6 flex flex-col justify-between shadow-sm">
+      <div className="flex justify-between items-start mb-6">
+        <span className="material-symbols-outlined text-[#0056D2] text-[24px]">{icon}</span>
         <span className={`text-xs font-bold ${isPositive ? 'text-[#1b6d24]' : 'text-gray-500'}`}>
           {trend}
         </span>

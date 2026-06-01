@@ -1,7 +1,8 @@
-// app/screens/appeals/page.tsx
+// src/app/screens/appeals/page.tsx
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
+import Topbar from "@/app/screens/components/Topbar";
 import PageHeader from './components/PageHeader';
 import ActionBar from './components/ActionBar';
 import AppealsTable from './components/AppealsTable';
@@ -18,21 +19,26 @@ export default function AppealsPage() {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setTimeout(() => setSelectedAppealId(null), 300); // clear after animation
+    setTimeout(() => setSelectedAppealId(null), 300);
   };
 
   return (
-    <main className="grow p-space-8 max-w-400 mx-auto w-full">
-      <PageHeader />
-      <ActionBar />
-      <AppealsTable onRowClick={handleOpenModal} />
-      
-      {/* Sliding Panel Modal */}
-      <AppealDetailModal 
-        isOpen={isModalOpen} 
-        onClose={handleCloseModal} 
-        appealId={selectedAppealId} 
-      />
-    </main>
+    <div className="flex flex-col min-h-screen w-full bg-white">
+      {/* Topbar Global dari Dashboard */}
+      <Topbar />
+
+      <main className="flex-grow p-6 lg:p-10 max-w-[1600px] mx-auto w-full">
+        <PageHeader />
+        <ActionBar />
+        <AppealsTable onRowClick={handleOpenModal} />
+        
+        {/* Sliding Panel Modal */}
+        <AppealDetailModal 
+          isOpen={isModalOpen} 
+          onClose={handleCloseModal} 
+          appealId={selectedAppealId} 
+        />
+      </main>
+    </div>
   );
 }

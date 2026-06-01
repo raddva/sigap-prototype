@@ -1,25 +1,28 @@
-// app/screens/security-logs/components/LogControls.tsx
+// src/app/screens/security-logs/components/LogControls.tsx
+import React from 'react';
 
 export default function LogControls() {
   return (
-    <div className="flex flex-col md:flex-row gap-4 mb-space-8">
+    <div className="flex flex-col md:flex-row gap-6 mb-8 items-center">
       {/* Search Bar */}
-      <div className="relative grow bg-surface-container-lowest rounded-xl flex items-center px-4 py-2 border border-outline-variant/20 focus-within:border-l-4 focus-within:border-l-primary transition-all">
-        <span className="material-symbols-outlined text-on-surface-variant mr-3">search</span>
+      <div className="relative w-full">
+        <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-[20px]">
+          search
+        </span>
         <input 
           type="text" 
           placeholder="Search events, users, or IPs..." 
-          className="w-full bg-transparent border-none focus:ring-0 font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant p-0" 
+          className="w-full bg-white border border-gray-200 rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-[#002b73] text-gray-700 shadow-sm"
         />
       </div>
 
       {/* Action Buttons */}
-      <div className="flex gap-4">
-        <button className="flex items-center px-6 py-2 rounded-xl bg-transparent border-none text-primary hover:bg-surface-container-low transition-colors font-label-lg text-label-lg">
-          <span className="material-symbols-outlined mr-2">filter_list</span> Filter
+      <div className="flex gap-4 shrink-0">
+        <button className="flex items-center gap-2 px-4 py-3 font-semibold text-[#002b73] hover:bg-gray-50 rounded-xl transition-colors">
+          <span className="material-symbols-outlined text-[20px]">filter_list</span> Filter
         </button>
-        <button className="flex items-center px-6 py-2 rounded-xl bg-transparent border-none text-primary hover:bg-surface-container-low transition-colors font-label-lg text-label-lg">
-          <span className="material-symbols-outlined mr-2">download</span> Export
+        <button className="flex items-center gap-2 px-4 py-3 font-semibold text-[#002b73] hover:bg-gray-50 rounded-xl transition-colors">
+          <span className="material-symbols-outlined text-[20px]">download</span> Export
         </button>
       </div>
     </div>

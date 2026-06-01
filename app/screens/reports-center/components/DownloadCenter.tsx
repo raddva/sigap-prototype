@@ -1,28 +1,31 @@
-// app/screens/reports-center/components/DownloadCenter.tsx
-
+// src/app/screens/reports-center/components/DownloadCenter.tsx
+import React from 'react';
 import { recentDownloadsData } from '../data';
 
 export default function DownloadCenter() {
   return (
-    <aside className="bg-surface-container-low rounded-xl p-space-6 flex flex-col gap-4">
-      <h3 className="font-headline-md text-headline-md text-on-surface mb-2 border-b border-outline-variant/30 pb-4">
+    <aside className="bg-[#f4f6f8] rounded-2xl p-6 flex flex-col gap-5 border border-gray-100 h-full">
+      <h3 className="text-lg font-bold text-gray-900 pb-4 border-b border-gray-200" style={{ fontFamily: "Public Sans, sans-serif" }}>
         Download Center
       </h3>
-      <div className="flex flex-col gap-space-4">
+      
+      <div className="flex flex-col gap-4">
         {recentDownloadsData.map((item) => (
           <div 
             key={item.id} 
-            className="flex items-center gap-3 p-3 bg-surface-container-lowest rounded-lg border border-outline-variant/20 hover:border-primary/30 transition-colors cursor-pointer"
+            className="flex items-center gap-3 p-3 bg-white rounded-xl border border-gray-100 hover:border-[#0056D2]/30 hover:shadow-sm transition-all cursor-pointer"
           >
-            <div className={`w-10 h-10 rounded flex items-center justify-center ${item.colorClass}`}>
-              <span className="material-symbols-outlined">{item.icon}</span>
+            <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${item.colorClass}`}>
+              <span className="material-symbols-outlined text-[20px]">{item.icon}</span>
             </div>
+            
             <div className="flex-1 min-w-0">
-              <p className="font-label-lg text-label-lg text-on-surface truncate">{item.fileName}</p>
-              <p className="font-label-sm text-label-sm text-on-surface-variant">{item.details}</p>
+              <p className="text-sm font-bold text-gray-900 truncate">{item.fileName}</p>
+              <p className="text-[11px] text-gray-500 mt-0.5">{item.details}</p>
             </div>
-            <button className="text-primary hover:text-primary-container p-1">
-              <span className="material-symbols-outlined">download</span>
+            
+            <button className="text-[#0056D2] hover:bg-[#e8f0fe] p-1.5 rounded-md transition-colors">
+              <span className="material-symbols-outlined text-[20px]">download</span>
             </button>
           </div>
         ))}

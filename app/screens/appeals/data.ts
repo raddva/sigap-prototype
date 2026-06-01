@@ -1,4 +1,4 @@
-// app/screens/appeals/data.ts
+// src/app/screens/appeals/data.ts
 
 export interface Appeal {
   id: string;
@@ -23,12 +23,12 @@ export const appealsData: Appeal[] = [
     type: 'Eligibility Dispute',
     date: 'Oct 12, 2023',
     status: 'New Appeal',
-    statusStyle: 'bg-tertiary-fixed text-on-tertiary-fixed-variant',
-    statusIcon: 'pending',
+    statusStyle: 'bg-[#fef7e0] text-[#b06000]', // Yellow badge
+    statusIcon: 'more_horiz',
     officer: 'Unassigned',
     priority: 'High',
-    priorityStyle: 'text-error font-medium',
-    priorityIcon: 'priority_high',
+    priorityStyle: 'text-[#ba1a1a] font-semibold', // Red text
+    priorityIcon: 'priority_high', // Exclamation mark
   },
   {
     id: 'APP-8925',
@@ -37,11 +37,11 @@ export const appealsData: Appeal[] = [
     type: 'Data Correction',
     date: 'Oct 10, 2023',
     status: 'Under Review',
-    statusStyle: 'bg-primary-container/10 text-primary-container',
+    statusStyle: 'bg-[#e8f0fe] text-[#0056D2]', // Blue badge
     statusIcon: 'hourglass_empty',
     officer: 'Ahmad Fauzi',
     priority: 'Medium',
-    priorityStyle: 'text-on-surface-variant',
+    priorityStyle: 'text-gray-600 font-medium',
     priorityIcon: '',
   },
   {
@@ -51,11 +51,11 @@ export const appealsData: Appeal[] = [
     type: 'Payment Missing',
     date: 'Oct 05, 2023',
     status: 'Resolved',
-    statusStyle: 'bg-secondary-container text-on-secondary-container',
+    statusStyle: 'bg-[#e6f4ea] text-[#1b6d24]', // Green badge
     statusIcon: 'check_circle',
     officer: 'Dian Kusuma',
     priority: 'Low',
-    priorityStyle: 'text-on-surface-variant',
+    priorityStyle: 'text-gray-600 font-medium',
     priorityIcon: '',
   }
 ];

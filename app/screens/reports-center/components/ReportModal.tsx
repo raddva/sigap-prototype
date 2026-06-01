@@ -1,7 +1,7 @@
-// app/screens/reports-center/components/ReportModal.tsx
+// src/app/screens/reports-center/components/ReportModal.tsx
 'use client';
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface ReportModalProps {
   isOpen: boolean;
@@ -13,22 +13,27 @@ export default function ReportModal({ isOpen, onClose }: ReportModalProps) {
   const [progressText, setProgressText] = useState('Compiling data...');
   const [isRendered, setIsRendered] = useState(false);
 
-  // Delay mount for transition effect
+  // Animasi masuk/keluar
   useEffect(() => {
-    if (isOpen) setIsRendered(true);
+    if (isOpen) {
+      setIsRendered(true);
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
   }, [isOpen]);
 
+  // Logika simulasi progress bar
   useEffect(() => {
     let interval: NodeJS.Timeout;
 
     if (isOpen) {
-      // Reset state every time modal opens
       setProgress(0);
       setProgressText('Compiling data...');
 
       interval = setInterval(() => {
         setProgress((prev) => {
-          const next = prev + Math.random() * 15; // Random increments
+          const next = prev + Math.random() * 15;
           if (next >= 100) {
             clearInterval(interval);
             setProgressText('Report ready.');
@@ -50,70 +55,73 @@ export default function ReportModal({ isOpen, onClose }: ReportModalProps) {
 
   const handleClose = () => {
     setIsRendered(false);
-    setTimeout(onClose, 300); // Allow animation to finish before unmounting
+    setTimeout(onClose, 300);
   };
 
   if (!isOpen && !isRendered) return null;
 
   return (
     <div className={`fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-300 ${isRendered ? 'opacity-100' : 'opacity-0'}`}>
+      
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-on-background/40 backdrop-blur-sm" onClick={handleClose}></div>
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm cursor-pointer" onClick={handleClose}></div>
       
       {/* Modal Content */}
-      <div className={`relative bg-surface-container-lowest w-full max-w-lg rounded-xl shadow-[0_12px_32px_-4px_rgba(25,28,29,0.12)] p-space-8 m-4 flex flex-col gap-space-6 transform transition-transform duration-300 ${isRendered ? 'scale-100' : 'scale-95'}`}>
+      <div className={`relative bg-white w-full max-w-lg rounded-2xl shadow-2xl p-8 m-4 flex flex-col gap-6 transform transition-transform duration-300 ${isRendered ? 'scale-100' : 'scale-95'}`}>
+        
         <div className="flex justify-between items-start">
           <div>
-            <h3 className="font-headline-md text-headline-md text-on-surface">Generating Report</h3>
-            <p className="font-body-md text-body-md text-on-surface-variant">Monthly Assistance Report - October 2023</p>
+            <h3 className="text-xl font-bold text-gray-900" style={{ fontFamily: "Public Sans, sans-serif" }}>Generating Report</h3>
+            <p className="text-sm text-gray-500 mt-1">Monthly Assistance Report - October 2023</p>
           </div>
-          <button className="text-on-surface-variant hover:text-on-surface" onClick={handleClose}>
-            <span className="material-symbols-outlined">close</span>
+          <button className="text-gray-400 hover:text-gray-900 bg-gray-50 hover:bg-gray-100 p-1.5 rounded-full transition-colors" onClick={handleClose}>
+            <span className="material-symbols-outlined text-[20px]">close</span>
           </button>
         </div>
 
-        {/* Report Summary Data (Simulated Preview) */}
-        <div className="bg-surface-container-low rounded-lg p-space-6 flex flex-col gap-4 border border-outline-variant/20">
-          <div className="flex justify-between items-center border-b border-outline-variant/30 pb-2">
-            <span className="font-body-md text-body-md text-on-surface-variant">Total Beneficiaries</span>
-            <span className="font-label-lg text-label-lg text-on-surface">142,500</span>
+        {/* Data Preview */}
+        <div className="bg-gray-50 rounded-xl p-5 flex flex-col gap-4 border border-gray-100">
+          <div className="flex justify-between items-center border-b border-gray-200 pb-3">
+            <span className="text-sm text-gray-600">Total Beneficiaries</span>
+            <span className="text-sm font-bold text-gray-900">142,500</span>
           </div>
-          <div className="flex justify-between items-center border-b border-outline-variant/30 pb-2">
-            <span className="font-body-md text-body-md text-on-surface-variant">Funds Disbursed</span>
-            <span className="font-label-lg text-label-lg text-on-surface">$12.4M</span>
+          <div className="flex justify-between items-center border-b border-gray-200 pb-3">
+            <span className="text-sm text-gray-600">Funds Disbursed</span>
+            <span className="text-sm font-bold text-gray-900">$12.4M</span>
           </div>
           <div className="flex justify-between items-center">
-            <span className="font-body-md text-body-md text-on-surface-variant">Pages</span>
-            <span className="font-label-lg text-label-lg text-on-surface">14</span>
+            <span className="text-sm text-gray-600">Pages</span>
+            <span className="text-sm font-bold text-gray-900">14</span>
           </div>
         </div>
 
         {/* Progress Bar */}
         <div className="flex flex-col gap-2">
-          <div className="flex justify-between items-center">
-            <span className="font-label-sm text-label-sm text-on-surface-variant">{progressText}</span>
-            <span className="font-label-sm text-label-sm text-primary">{Math.floor(progress)}%</span>
+          <div className="flex justify-between items-center text-sm font-medium">
+            <span className="text-gray-600">{progressText}</span>
+            <span className="text-[#0056D2]">{Math.floor(progress)}%</span>
           </div>
-          <div className="w-full h-2 bg-surface-container-high rounded-full overflow-hidden">
+          <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
             <div 
-              className="h-full bg-gradient-to-r from-primary to-primary-container transition-all duration-300 rounded-full" 
+              className="h-full bg-[#0056D2] transition-all duration-300 rounded-full" 
               style={{ width: `${progress}%` }}
             ></div>
           </div>
         </div>
 
-        <div className="flex justify-end gap-3 mt-2">
+        {/* Action Buttons */}
+        <div className="flex justify-end gap-3 mt-4">
           <button 
-            className="font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low px-4 py-2 rounded-lg transition-colors" 
+            className="text-sm font-bold text-gray-600 hover:bg-gray-100 px-5 py-2.5 rounded-lg transition-colors" 
             onClick={handleClose}
           >
             Cancel
           </button>
           <button 
-            className={`font-label-lg text-label-lg bg-gradient-to-r from-primary to-primary-container text-on-primary px-4 py-2 rounded-lg transition-opacity ${progress < 100 ? 'opacity-50 cursor-not-allowed' : ''}`}
+            className={`text-sm font-bold text-white bg-[#0056D2] hover:bg-[#0040a1] px-5 py-2.5 rounded-lg transition-all ${progress < 100 ? 'opacity-50 cursor-not-allowed hover:bg-[#0056D2]' : 'shadow-sm'}`}
             disabled={progress < 100}
             onClick={() => {
-               alert("File Downloaded"); 
+               alert("PDF successfully downloaded!"); 
                handleClose();
             }}
           >

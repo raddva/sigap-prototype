@@ -3,7 +3,7 @@ import React from "react";
 
 export default function ApprovalChart() {
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm h-full flex flex-col">
+    <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm h-full min-h-[300px] flex flex-col">
       <h3 className="text-sm font-bold text-gray-900 mb-6">Approval vs Rejection</h3>
       
       <div className="flex-1 flex flex-col items-center justify-center">
@@ -15,7 +15,7 @@ export default function ApprovalChart() {
           <div className="w-20 h-20 bg-white rounded-full"></div>
         </div>
 
-        <div className="w-full space-y-3">
+        <div className="w-full space-y-3 px-4">
           <div className="flex justify-between items-center text-sm">
             <span className="text-gray-600">Approved</span>
             <span className="font-bold text-gray-900">89.2%</span>

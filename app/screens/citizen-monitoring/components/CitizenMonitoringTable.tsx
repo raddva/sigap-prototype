@@ -3,9 +3,37 @@ import React from "react";
 import { citizensData } from "../data";
 
 export default function CitizenMonitoringTable() {
+  const triggerDemoAnomaly = async () => {
+  alert('Simulasi Anomali Dimulai! Cek HP kamu.');
+  await fetch('/api/trigger-anomaly', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ citizenId: '320114567890002' })
+  });
+};
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex-1">
       <div className="overflow-x-auto">
+        <header className="flex flex-col md:flex-row justify-between items-start md:items-end w-full mb-6 gap-4">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 mb-1">Citizen Monitoring</h1>
+            <div className="flex items-center gap-2 text-gray-500 text-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#1b6d24]"></span>
+              Monitor AI-detected socioeconomic changes in real time
+            </div>
+          </div>
+          
+          <div className="flex gap-3">
+            {/* TOMBOL RAHASIA UNTUK DEMO */}
+            <button 
+              onClick={triggerDemoAnomaly}
+              className="flex items-center gap-2 px-4 py-2 bg-[#ba1a1a] text-white rounded-lg text-sm font-bold hover:bg-red-800 transition-colors animate-pulse"
+            >
+              <span className="material-symbols-outlined text-[18px]">warning</span> Trigger Demo Anomaly
+            </button>
+            {/* Tombol filter & export tetap di sini */}
+          </div>
+        </header>
         <table className="w-full text-left">
           <thead className="bg-white border-b border-gray-100 text-gray-500 text-xs font-semibold">
             <tr>

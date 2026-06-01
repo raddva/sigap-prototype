@@ -10,7 +10,7 @@ import OfficerReviewPanel from './components/OfficerReviewPanel';
 
 export default function CitizenDetailPage() {
   return (
-    <div className="flex flex-col min-h-screen w-full bg-[#f8f9fa]">
+    <div className="flex flex-col min-h-screen w-full bg-white p-6 lg:p-8">
       <Topbar />
       
       <main className="flex-1 p-6 lg:p-8 max-w-[1600px] mx-auto w-full">

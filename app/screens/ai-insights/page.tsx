@@ -11,7 +11,7 @@ import HumanOversightFooter from "./components/HumanOversightFooter";
 
 export default function AIInsightsPage() {
   return (
-    <div className="flex flex-col min-h-screen w-full bg-[#f8f9fa]">
+    <div className="flex flex-col min-h-screen w-full bg-white p-6 lg:p-8">
       {/* Topbar Global dari Dashboard */}
       <Topbar />
 

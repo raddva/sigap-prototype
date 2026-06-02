@@ -17,7 +17,7 @@ export default function DashboardPage() {
 
       {/* 2. HEADER */}
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-900 mb-1" style={{ fontFamily: "Public Sans, sans-serif" }}>Overview</h1>
+        <h1 className="text-3xl font-bold text-[#002b73] mb-1" style={{ fontFamily: "Public Sans, sans-serif" }}>Overview</h1>
         <p className="text-gray-500 text-sm">Real-time monitoring and AI insights for social assistance distribution.</p>
       </div>
 

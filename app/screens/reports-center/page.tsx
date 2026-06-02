@@ -16,7 +16,7 @@ export default function ReportsCenterPage() {
       {/* Topbar Global dari Dashboard */}
       <Topbar />
 
-      <main className="flex-1 p-6 lg:p-10 max-w-[1600px] mx-auto w-full">
+      <main className="flex-1 max-w-[1600px] mx-auto w-full">
         <PageHeader />
 
         <div className="flex flex-col lg:flex-row gap-8">

@@ -15,7 +15,7 @@ export default function AIInsightsPage() {
       {/* Topbar Global dari Dashboard */}
       <Topbar />
 
-      <main className="flex-1 p-6 lg:p-8 max-w-[1600px] mx-auto w-full">
+      <main className="flex-1 p-0 max-w-[1600px] mx-auto w-full">
         
         {/* Header & Stats */}
         <InsightsHeader />

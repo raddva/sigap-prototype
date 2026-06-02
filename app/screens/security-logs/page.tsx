@@ -13,7 +13,7 @@ export default function SecurityLogsPage() {
       {/* Topbar Global dari Dashboard */}
       <Topbar />
 
-      <main className="flex-1 p-6 lg:p-8 max-w-[1200px] mx-auto w-full">
+      <main className="flex-1 max-w-[1200px] mx-auto w-full">
         <PageHeader />
         <LogControls />
         <LogList />

@@ -16,9 +16,11 @@
 # next.js
 /.next/
 /out/
-
 # production
 /build
+
+# baileys
+wa-auth/
 
 # misc
 .DS_Store

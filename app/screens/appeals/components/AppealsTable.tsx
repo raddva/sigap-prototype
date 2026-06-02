@@ -1,10 +1,87 @@
 // src/app/screens/appeals/components/AppealsTable.tsx
 import React from 'react';
 import { appealsData } from '../data';
+import { AlertCircle, AlertTriangle, ArrowDown, CheckCircle2, Clock, Flame, Hourglass, Minus, XCircle } from 'lucide-react';
 
 interface AppealsTableProps {
   onRowClick: (id: string) => void;
 }
+
+const getPriorityStyle = (priority: string) => {
+  switch (priority?.toLowerCase()) {
+    case "high":
+      return "bg-red-50 text-red-700 border-red-100";
+    case "medium":
+      return "bg-amber-50 text-amber-700 border-amber-100";
+    case "low":
+      return "bg-green-50 text-green-700 border-green-100";
+    case "critical":
+      return "bg-red-100 text-red-800 border-red-200";
+    default:
+      return "bg-gray-100 text-gray-600 border-gray-200";
+  }
+};
+
+const getPriorityIcon = (priority: string) => {
+  switch (priority?.toLowerCase()) {
+    case "high":
+      return <AlertTriangle className="w-3.5 h-3.5" />;
+    case "medium":
+      return <Minus className="w-3.5 h-3.5" />;
+    case "low":
+      return <ArrowDown className="w-3.5 h-3.5" />;
+    case "critical":
+      return <Flame className="w-3.5 h-3.5" />;
+    default:
+      return <Minus className="w-3.5 h-3.5" />;
+  }
+};
+
+const getStatusStyle = (status: string) => {
+  switch (status?.toLowerCase()) {
+    case "approved":
+    case "resolved":
+    case "completed":
+      return "bg-green-50 text-green-700 border-green-100";
+
+    case "pending":
+    case "in review":
+      return "bg-amber-50 text-amber-700 border-amber-100";
+
+    case "rejected":
+    case "declined":
+      return "bg-red-50 text-red-700 border-red-100";
+
+    case "in progress":
+      return "bg-blue-50 text-blue-700 border-blue-100";
+
+    default:
+      return "bg-gray-100 text-gray-600 border-gray-200";
+  }
+};
+
+const getStatusIcon = (status: string) => {
+  switch (status?.toLowerCase()) {
+    case "approved":
+    case "resolved":
+    case "completed":
+      return <CheckCircle2 className="w-3.5 h-3.5" />;
+
+    case "pending":
+    case "in review":
+      return <Hourglass className="w-3.5 h-3.5" />;
+
+    case "rejected":
+    case "declined":
+      return <XCircle className="w-3.5 h-3.5" />;
+
+    case "in progress":
+      return <Clock className="w-3.5 h-3.5" />;
+
+    default:
+      return <AlertCircle className="w-3.5 h-3.5" />;
+  }
+};
 
 export default function AppealsTable({ onRowClick }: AppealsTableProps) {
   return (
@@ -40,14 +117,23 @@ export default function AppealsTable({ onRowClick }: AppealsTableProps) {
                 <td className="py-4 px-6">{appeal.type}</td>
                 <td className="py-4 px-6 text-gray-500">{appeal.date}</td>
                 <td className="py-4 px-6">
-                  <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold ${appeal.statusStyle}`}>
-                    <span className="material-symbols-outlined text-[14px]">{appeal.statusIcon}</span> {appeal.status}
+                  <span
+                    className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${getStatusStyle(
+                      appeal.status
+                    )}`}
+                  >
+                    {getStatusIcon(appeal.status)}
+                    {appeal.status}
                   </span>
                 </td>
                 <td className="py-4 px-6 text-gray-600">{appeal.officer}</td>
                 <td className="py-4 px-6">
-                  <span className={`flex items-center gap-1 ${appeal.priorityStyle}`}>
-                    {appeal.priorityIcon && <span className="material-symbols-outlined text-[16px]">{appeal.priorityIcon}</span>}
+                  <span
+                    className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${getPriorityStyle(
+                      appeal.priority
+                    )}`}
+                  >
+                    {getPriorityIcon(appeal.priority)}
                     {appeal.priority}
                   </span>
                 </td>

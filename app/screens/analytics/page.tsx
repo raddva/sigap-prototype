@@ -17,12 +17,12 @@ export default function AnalyticsPage() {
       {/* Topbar Global */}
       <Topbar />
 
-      <main className="flex-1 p-6 lg:p-8 max-w-[1600px] mx-auto w-full">
+      <main className="flex-1 p-0 max-w-[1600px] mx-auto w-full">
         
         {/* Page Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-1" style={{ fontFamily: "Public Sans, sans-serif" }}>
+            <h1 className="text-3xl font-bold text-[#002b73] mb-1" style={{ fontFamily: "Public Sans, sans-serif" }}>
               Analytics & Reporting
             </h1>
             <p className="text-sm text-[#0056D2]">AI-powered monitoring and social assistance insights</p>

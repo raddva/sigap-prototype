@@ -14,13 +14,13 @@ export default function ActivityFeedPage() {
       {/* Topbar Global dari Dashboard */}
       <Topbar />
 
-      <main className="flex-1 p-6 lg:p-8 max-w-[1600px] mx-auto w-full">
+      <main className="flex-1 p-0 max-w-[1600px] mx-auto w-full">
         
         {/* Page Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <h1 className="text-3xl font-bold text-gray-900" style={{ fontFamily: "Public Sans, sans-serif" }}>
+              <h1 className="text-3xl font-bold text-[#002b73]" style={{ fontFamily: "Public Sans, sans-serif" }}>
                 Activity Feed
               </h1>
               <span className="bg-[#e6f4ea] text-[#1b6d24] px-2 py-0.5 rounded-full text-xs font-bold flex items-center gap-1 border border-[#1b6d24]/20">
@@ -34,16 +34,31 @@ export default function ActivityFeedPage() {
           </div>
           
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 bg-gray-50 px-4 py-2 rounded-full border border-gray-200">
-              <span className="text-xs font-bold text-gray-700">Auto-refresh</span>
-              {/* Toggle Switch */}
+            {/* AUTO REFRESH TOGGLE */}
+            <div className="flex items-center gap-3 bg-gray-50 px-4 py-2 rounded-full border border-gray-200">
+
+              <span className="text-xs font-bold text-gray-700">
+                Auto-refresh
+              </span>
+
               <label className="relative inline-flex items-center cursor-pointer">
                 <input type="checkbox" defaultChecked className="sr-only peer" />
-                <div className="w-8 h-4 bg-gray-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-[#0056D2]"></div>
+
+                {/* TRACK */}
+                <div className="w-10 h-5 bg-gray-300 rounded-full peer-checked:bg-[#0056D2] transition-colors duration-300"></div>
+
+                {/* KNOB */}
+                <div className="absolute left-[2px] top-[2px] h-4 w-4 bg-white rounded-full shadow-sm transition-all duration-300 peer-checked:translate-x-5"></div>
               </label>
+
             </div>
+
+            {/* FILTER BUTTON */}
             <button className="flex items-center gap-2 text-[#0056D2] font-bold text-sm hover:bg-[#e8f0fe] px-3 py-2 rounded-lg transition-colors">
-              <span className="material-symbols-outlined text-[20px]">filter_list</span> Filter
+              <span className="material-symbols-outlined text-[20px]">
+                filter_list
+              </span>
+              Filter
             </button>
           </div>
         </div>

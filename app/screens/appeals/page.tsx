@@ -27,7 +27,7 @@ export default function AppealsPage() {
       {/* Topbar Global dari Dashboard */}
       <Topbar />
 
-      <main className="flex-grow p-6 lg:p-10 max-w-[1600px] mx-auto w-full">
+      <main className="flex-grow max-w-[1600px] mx-auto w-full">
         <PageHeader />
         <ActionBar />
         <AppealsTable onRowClick={handleOpenModal} />

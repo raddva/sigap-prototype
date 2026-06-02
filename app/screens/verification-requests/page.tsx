@@ -15,7 +15,7 @@ export default function VerificationRequestsPage() {
       {/* Topbar Global dari Dashboard */}
       <Topbar />
 
-      <main className="flex-1 p-6 lg:p-8 max-w-[1600px] mx-auto w-full">
+      <main className="flex-1 max-w-[1600px] mx-auto w-full">
         <PageHeader />
         <StatsCards />
 

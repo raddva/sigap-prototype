@@ -16,7 +16,7 @@ export default function SettingsPage() {
       {/* Topbar Global dari Dashboard */}
       <Topbar />
 
-      <main className="flex-1 p-6 lg:p-8 max-w-[1200px] mx-auto w-full">
+      <main className="flex-1 max-w-[1200px] mx-auto w-full">
         <SettingsHeader />
 
         <div className="flex flex-col lg:flex-row gap-8">

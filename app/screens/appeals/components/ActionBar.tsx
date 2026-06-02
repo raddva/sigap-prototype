@@ -3,7 +3,7 @@ import React from 'react';
 
 export default function ActionBar() {
   return (
-    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 bg-[#f8f9fa] p-3 rounded-xl border border-gray-100">
+    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 bg-white p-3 rounded-xl border-none">
       
       {/* Filter Buttons */}
       <div className="flex flex-wrap gap-2">

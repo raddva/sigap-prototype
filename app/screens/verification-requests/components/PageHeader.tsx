@@ -3,9 +3,9 @@ import React from 'react';
 
 export default function PageHeader() {
   return (
-    <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 mt-4">
+    <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2" style={{ fontFamily: "Public Sans, sans-serif" }}>
+        <h1 className="text-3xl font-bold text-[#002b73] mb-2" style={{ fontFamily: "Public Sans, sans-serif" }}>
           Verification Requests
         </h1>
         <p className="text-[15px] text-gray-600">

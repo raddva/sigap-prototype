@@ -4,7 +4,7 @@ import { Search, Bell } from "lucide-react";
 
 export default function Topbar() {
   return (
-    <header className="bg-transparent sticky top-0 z-40 w-full h-16 flex items-center px-6 lg:px-8">
+    <header className="bg-white sticky top-0 z-40 w-full h-16 flex items-center px-6 lg:px-8">
       <div className="ml-auto flex items-center gap-6">
         
         {/* System Status */}

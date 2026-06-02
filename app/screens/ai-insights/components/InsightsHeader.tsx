@@ -5,7 +5,7 @@ export default function InsightsHeader() {
   return (
     <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-6">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2" style={{ fontFamily: "Public Sans, sans-serif" }}>
+        <h1 className="text-3xl font-bold text-[#002b73] mb-2" style={{ fontFamily: "Public Sans, sans-serif" }}>
           AI Insights
         </h1>
         <p className="text-sm text-gray-500">Transparent AI recommendation and socioeconomic analysis</p>

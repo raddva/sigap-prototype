@@ -4,7 +4,7 @@ import { auditLogsData } from '../data';
 
 export default function LogList() {
   return (
-    <div className="bg-[#f8f9fa] rounded-2xl p-6 border border-gray-100 flex flex-col gap-6">
+    <div className="bg-white rounded-2xl p-1 border-none flex flex-col gap-6">
       
       {/* Log Entries Mapping */}
       {auditLogsData.map((log) => (

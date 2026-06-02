@@ -1,8 +1,51 @@
 // app/screens/dashboard/components/CitizenTable.tsx
 import React from "react";
 import { citizenQueueData } from "../data";
+import { AlertTriangle, CheckCircle2, Clock, Sparkles, XCircle } from "lucide-react";
 
-export default function CitizenTable() {
+interface Props {
+  onSelectCitizen?: (citizen: any) => void;
+}
+
+const getStatusBadge = (statusType: string) => {
+  switch (statusType?.toLowerCase()) {
+    case "approved":
+    case "verified":
+    case "ai":
+      return {
+        icon: <CheckCircle2 className="w-3.5 h-3.5" />,
+        className: "bg-green-50 text-green-700 border-green-100",
+      };
+
+    case "pending":
+    case "in review":
+      return {
+        icon: <Clock className="w-3.5 h-3.5" />,
+        className: "bg-amber-50 text-amber-700 border-amber-100",
+      };
+
+    case "flagged":
+    case "warning":
+      return {
+        icon: <AlertTriangle className="w-3.5 h-3.5" />,
+        className: "bg-orange-50 text-orange-700 border-orange-100",
+      };
+
+    case "rejected":
+      return {
+        icon: <XCircle className="w-3.5 h-3.5" />,
+        className: "bg-red-50 text-red-700 border-red-100",
+      };
+
+    default:
+      return {
+        icon: <Sparkles className="w-3.5 h-3.5" />,
+        className: "bg-gray-100 text-gray-600 border-gray-200",
+      };
+  }
+};
+
+export default function CitizenTable({ onSelectCitizen }: Props) {
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
       <div className="flex justify-between items-center p-6 border-b border-gray-100">
@@ -26,6 +69,7 @@ export default function CitizenTable() {
               <tr 
                 key={citizen.id} 
                 className={`transition-colors group ${citizen.isActive ? "bg-blue-50/30" : "hover:bg-gray-50"}`}
+              onClick={() => onSelectCitizen?.(citizen)}
               >
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-3">
@@ -34,7 +78,7 @@ export default function CitizenTable() {
                     </div>
                     <div>
                       <p className="font-semibold text-gray-900">{citizen.name}</p>
-                      <p className="text-xs text-gray-500">Reg: {citizen.region}</p>
+                      <p className="text-xs text-gray-500">{citizen.region}</p>
                     </div>
                   </div>
                 </td>
@@ -65,9 +109,18 @@ export default function CitizenTable() {
                   </div>
                 </td>
                 <td className="px-6 py-4">
-                  <span className={`inline-flex items-center gap-1 ${citizen.statusBg} ${citizen.statusColor} px-2.5 py-1 rounded-md text-xs font-semibold`}>
-                    <span className="material-symbols-outlined text-[14px]">{citizen.statusIcon}</span> {citizen.status}
-                  </span>
+                  {(() => {
+                    const badge = getStatusBadge(citizen.statusType);
+
+                    return (
+                      <span
+                        className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${badge.className}`}
+                      >
+                        {badge.icon}
+                        {citizen.status}
+                      </span>
+                    );
+                  })()}
                 </td>
                 <td className="px-6 py-4 text-right">
                   <button className={citizen.isActive ? "text-[#0056D2]" : "text-gray-400 hover:text-[#0056D2]"}>

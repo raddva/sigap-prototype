@@ -1,17 +1,14 @@
 import React from "react";
 import { citizenProfile } from "../data";
+import { User } from "lucide-react";
 
 export default function CitizenProfileHeader() {
   return (
     <section className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col md:flex-row gap-6 items-start">
 
       {/* AVATAR */}
-      <div className="w-20 h-20 rounded-full overflow-hidden shrink-0 bg-gray-100 border border-gray-200">
-        <img
-          alt={citizenProfile.name}
-          className="w-full h-full object-cover"
-          src={citizenProfile.avatar}
-        />
+      <div className="w-20 h-20 rounded-full bg-[#e8f0fe] flex items-center justify-center border border-blue-100">
+        <User className="w-10 h-10 text-[#0056D2]" />
       </div>
 
       {/* CONTENT */}

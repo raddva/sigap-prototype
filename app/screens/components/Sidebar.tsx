@@ -9,13 +9,13 @@ const SCREENS = [
   { path: "/screens/citizen-monitoring", title: "Citizen Monitoring", icon: "supervised_user_circle" },
   // { path: "/screens/citizen-detail", title: "Citizen Detail", icon: "person" },
   { path: "/screens/analytics", title: "Analytics & Reporting", icon: "analytics" },
-  { path: "/screens/ai-insights", title: "AI Insights", icon: "psychology" },
+  // { path: "/screens/ai-insights", title: "AI Insights", icon: "psychology" },
   { path: "/screens/activity", title: "Activity Feed", icon: "history" },
   { path: "/screens/verification-requests", title: "Verification Requests", icon: "fact_check" },
   { path: "/screens/reports-center", title: "Reports Center", icon: "description" },
   { path: "/screens/appeals", title: "Appeals & Complaints", icon: "gavel" },
   { path: "/screens/security-logs", title: "Security & Audit Logs", icon: "security" },
-  { path: "/screens/settings", title: "Settings", icon: "settings" },
+  // { path: "/screens/settings", title: "Settings", icon: "settings" },
 ];
 
 export default function Sidebar({
@@ -48,14 +48,23 @@ export default function Sidebar({
       {/* Logo */}
       <Link
         href="/screens/dashboard"
-        className={`flex items-center mb-8 ${isCollapsed ? "justify-center" : "gap-3"}`}
+        className={`flex items-center mb-8 ${
+          isCollapsed ? "justify-center" : "gap-3"
+        }`}
       >
         <div className="h-10 w-10">
           <img src="/logo.svg" alt="logo" />
         </div>
+
         {!isCollapsed && (
-          <div>
-            <h1 className="text-2xl font-bold text-[#002b73]">SIGAP</h1>
+          <div className="flex flex-col leading-tight">
+            <h1 className="text-2xl font-bold text-[#002b73]">
+              SIGAP
+            </h1>
+
+            <span className="text-[9px] text-gray-500 font-medium tracking-wide">
+              Government Analytics
+            </span>
           </div>
         )}
       </Link>

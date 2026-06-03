@@ -1,4 +1,3 @@
-// app/screens/citizen-monitoring/components/CitizenMonitoringTable.tsx
 import React from "react";
 
 type Props = {
@@ -10,23 +9,12 @@ export default function CitizenMonitoringTable({
   data,
   onSelectCitizen,
 }: Props) {
-    const triggerDemoAnomaly = async () => {
-    const myPhoneNumber = process.env.NEXT_PUBLIC_MY_PHONE; 
-    alert('Simulasi Anomali Dimulai! Cek HP kamu.');    
-    await fetch('/api/trigger-anomaly', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ phone: myPhoneNumber }) 
-    });
-  };
-
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex-1">
 
       {/* HEADER */}
       <div className="overflow-x-auto">
         <header className="flex flex-col md:flex-row justify-between items-start md:items-end w-full p-5">
-          
           <div>
             <h1 className="text-3xl font-bold text-gray-900 mb-1">
               Monitoring
@@ -35,18 +23,6 @@ export default function CitizenMonitoringTable({
               <span className="w-3 h-3 rounded-full bg-[#1b6d24]"></span>
               Monitor AI-detected socioeconomic changes in real time
             </div>
-          </div>
-
-          <div className="flex gap-3 mt-3 md:mt-0">
-            <button
-              onClick={triggerDemoAnomaly}
-              className="flex items-center gap-2 px-4 py-2 bg-[#ba1a1a] text-white rounded-lg text-sm font-bold hover:bg-red-800 transition-colors animate-pulse"
-            >
-              <span className="material-symbols-outlined text-[18px]">
-                warning
-              </span>
-              Trigger Demo Anomaly
-            </button>
           </div>
         </header>
 

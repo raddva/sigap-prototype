@@ -6,8 +6,31 @@ import { demoStore } from './store';
 // Mencegah Zombie Connection di Next.js saat Hot Reload
 const globalForWA = global as unknown as { sock: any };
 
+function getSmartReply(text: string, citizenName: string): string {
+  const lowerText = text.toLowerCase();
+
+  if (lowerText.includes('status') || lowerText.includes('cek')) {
+    return `🤖 *SIGAP AI Asisten*\n\nHalo ${citizenName}, status verifikasi Anda saat ini adalah: *${demoStore.status}*.\n\nJika status Anda "Pending Review", mohon tunggu petugas kami untuk melakukan validasi akhir.`;
+  } 
+  else if (lowerText.includes('syarat') || lowerText.includes('dokumen apa')) {
+    return `🤖 *SIGAP AI Asisten*\n\nUntuk proses verifikasi perubahan ekonomi, Anda dapat mengunggah salah satu dokumen berikut:\n1. Surat Keterangan PHK dari Perusahaan\n2. Foto Struk Tagihan Listrik terbaru\n3. Surat Keterangan Tidak Mampu (SKTM) dari Kelurahan\n\nSilakan kirimkan foto dokumen tersebut langsung di obrolan ini.`;
+  }
+  else if (lowerText.includes('bantuan') || lowerText.includes('bansos')) {
+    return `🤖 *SIGAP AI Asisten*\n\nSIGAP mendeteksi kelayakan Anda untuk program bantuan:\n- Bantuan Langsung Tunai (BLT)\n- Bantuan Pangan Non-Tunai (BPNT)\n\nKelayakan akhir akan ditentukan setelah dokumen bukti Anda diverifikasi oleh petugas.`;
+  }
+  else if (lowerText.includes('terima kasih') || lowerText.includes('makasih')) {
+    return `🤖 *SIGAP AI Asisten*\n\nSama-sama, ${citizenName}! SIGAP selalu siap membantu Anda. Semoga sehat selalu!`;
+  }
+  else if (lowerText.includes('halo') || lowerText.includes('pagi') || lowerText.includes('siang')) {
+    return `🤖 *SIGAP AI Asisten*\n\nHalo ${citizenName}! Saya adalah Asisten AI dari SIGAP. Ada yang bisa saya bantu terkait informasi bantuan sosial atau proses verifikasi Anda?`;
+  }
+  else {
+    // Fallback jika AI tidak mengerti pertanyaannya
+    return `🤖 *SIGAP AI Asisten*\n\nMaaf, saya belum sepenuhnya mengerti maksud Anda. \n\nKetik *Status* untuk mengecek status verifikasi.\nKetik *Syarat* untuk melihat daftar dokumen bukti.\nAtau langsung kirimkan *Foto Bukti* Anda di sini.`;
+  }
+}
+
 export async function initWhatsApp() {
-  // Jika socket sudah ada, pakai yang lama
   if (globalForWA.sock) {
     return globalForWA.sock;
   }
@@ -17,9 +40,9 @@ export async function initWhatsApp() {
   const sock = makeWASocket({
     auth: state,
     printQRInTerminal: false,
-    logger: pino({ level: 'silent' }) as any, // Matikan log berisik
-    browser: Browsers.macOS('Desktop'), // Menyamar sebagai WA Mac agar tidak diblokir
-    syncFullHistory: false, // Login super cepat
+    logger: pino({ level: 'silent' }) as any, 
+    browser: Browsers.macOS('Desktop'),
+    syncFullHistory: false, 
   });
 
   sock.ev.on('connection.update', (update: any) => {
@@ -36,11 +59,7 @@ export async function initWhatsApp() {
       const reason = lastDisconnect?.error?.output?.statusCode;
       console.log('⚠️ Koneksi terputus. Kode Error:', reason);
       globalForWA.sock = null; 
-      
-      // Reconnect otomatis jika bukan karena di-logout manual
-      if (reason !== 401) {
-        initWhatsApp();
-      }
+      if (reason !== 401) initWhatsApp();
     } else if (connection === 'open') {
       console.log('✅ WhatsApp Bot SIGAP Berhasil Tersambung!');
     }
@@ -48,7 +67,7 @@ export async function initWhatsApp() {
 
   sock.ev.on('creds.update', saveCreds);
 
-  // --- LISTENER: DETEKSI USER UPLOAD BUKTI ---
+  // --- LISTENER: DETEKSI PESAN MASUK ---
   sock.ev.on('messages.upsert', async ({ messages, type }: any) => {
     if (type !== 'notify') return; 
     
@@ -57,26 +76,36 @@ export async function initWhatsApp() {
 
     const senderJid = msg.key.remoteJid;
 
-    // Cek apakah pesan berisi Gambar atau Dokumen
+    // 1. Cek apakah pesan berisi Gambar atau Dokumen (Alur Verifikasi)
     const isImage = msg.message.imageMessage;
     const isDocument = msg.message.documentMessage;
     const isImageWithCaption = msg.message.extendedTextMessage?.contextInfo?.quotedMessage?.imageMessage;
 
+    // 2. Tangkap teks jika user mengirim pesan teks biasa
+    const textMessage = msg.message.conversation || msg.message.extendedTextMessage?.text || "";
+
     if (isImage || isDocument || isImageWithCaption) {
       console.log("📸 BUKTI FILE DITERIMA DARI WA PENGGUNA!");
 
-      // 1. Update Database Bohongan (Mock)
       demoStore.status = "Pending Review";
       demoStore.evidenceUploaded = true;
 
-      // 2. Kirim Auto-Reply
       const replyText = `✅ *Verifikasi Berhasil Diterima*\n\nTerima kasih, *${demoStore.citizenName}*. Berkas/bukti Anda telah berhasil ditangkap oleh sistem SIGAP.\n\nKasus Anda sekarang masuk dalam antrean *Prioritas Review Petugas*. Kami akan menghubungi Anda kembali setelah proses validasi final selesai.`;
       await sock.sendMessage(senderJid, { text: replyText });
       
-    } else {
-      // Jika user cuma balas teks biasa
-      const warningText = `Maaf, sistem hanya dapat memproses bukti berupa *Foto/Gambar* atau *Dokumen (PDF)*. Mohon kirim ulang bukti Anda.`;
-      await sock.sendMessage(senderJid, { text: warningText });
+    } 
+    else if (textMessage) {
+      // JIKA USER MENGIRIM TEKS (PERTANYAAN)
+      console.log(`💬 User bertanya: "${textMessage}"`);
+      
+      // Panggil fungsi Smart Mock AI
+      const aiResponse = getSmartReply(textMessage, demoStore.citizenName);
+      
+      // Berikan efek "sedang mengetik..." (opsional, menambah realisme)
+      await sock.sendPresenceUpdate('composing', senderJid);
+      setTimeout(async () => {
+        await sock.sendMessage(senderJid, { text: aiResponse });
+      }, 1500); // delay 1.5 detik agar terlihat seperti AI sedang berpikir
     }
   });
 
@@ -84,7 +113,6 @@ export async function initWhatsApp() {
   return sock;
 }
 
-// Fungsi untuk mengirim pesan dari API Route
 export async function sendWA(phone: string, message: string) {
   const socket = await initWhatsApp();
   const jid = `${phone}@s.whatsapp.net`;

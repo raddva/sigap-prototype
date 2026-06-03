@@ -23,15 +23,15 @@ export default function VerificationRequestsPage() {
         <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
           
           {/* Left Column: Controls & Table (8 cols) */}
-          <div className="xl:col-span-8 flex flex-col gap-6">
+          <div className="xl:col-span-12 flex flex-col gap-6">
             <AutomationControls />
             <VerificationTable />
           </div>
 
           {/* Right Column: WhatsApp Preview (4 cols) */}
-          <div className="xl:col-span-4 flex justify-center xl:justify-end">
+          {/* <div className="xl:col-span-4 flex justify-center xl:justify-end">
             <WhatsAppPreview />
-          </div>
+          </div> */}
           
         </div>
       </main>

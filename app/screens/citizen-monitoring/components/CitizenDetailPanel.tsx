@@ -20,6 +20,15 @@ export default function CitizenDetailPanel({ citizen }: Props) {
     });
   };
 
+  const handleAdminAction = async (action: 'approve' | 'reject') => {
+    alert(`Memproses ${action}... Sistem akan memberitahu warga via WhatsApp.`);
+    await fetch('/api/action', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action })
+    });
+  };
+
   if (!citizen) {
     return (
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col h-full sticky top-8 items-center justify-center p-10 text-center">
@@ -98,7 +107,7 @@ export default function CitizenDetailPanel({ citizen }: Props) {
               <div className="flex justify-between text-xs font-semibold text-gray-700 mb-1">
                 <span>Economic Change Score</span>
                 <span className="text-[#ba1a1a]">
-                  {citizen.econScore ?? 0}%
+                  {citizen.econScore ?? 0}
                 </span>
               </div>
 
@@ -219,34 +228,31 @@ export default function CitizenDetailPanel({ citizen }: Props) {
 
       {/* ACTIONS */}
       <div className="p-5 border-t border-gray-100 flex flex-col gap-3">
-        
-        {/* NEW TRIGGER DEMO BUTTON */}
         <button
           onClick={triggerDemoAnomaly}
-          className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-[#ba1a1a] text-white rounded-lg text-sm font-bold hover:bg-red-800 transition-colors animate-pulse"
+          className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg text-sm font-bold hover:bg-green-800 transition-colors"
         >
-          <span className="material-symbols-outlined text-[18px]">
-            warning
-          </span>
-          Trigger Demo Anomaly
+          <span className="material-symbols-outlined text-[18px]">warning</span>
+          Send WhatsApp
         </button>
 
         <div className="flex gap-3">
-          <button className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 font-semibold text-sm rounded-lg hover:bg-gray-50 transition-colors">
+          {/* TOMBOL REJECT */}
+          <button 
+            onClick={() => handleAdminAction('reject')}
+            className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 font-semibold text-sm rounded-lg hover:bg-red-50 hover:text-red-600 transition-colors"
+          >
             Reject
           </button>
-          <button className="flex-1 px-4 py-2 bg-transparent text-[#002b73] font-bold text-sm rounded-lg hover:bg-blue-50 transition-colors">
-            Manual Review
+
+          {/* TOMBOL APPROVE (Manual Review) */}
+          <button 
+            onClick={() => handleAdminAction('approve')}
+            className="flex-1 px-4 py-2 bg-[#002b73] text-white font-bold text-sm rounded-lg hover:bg-[#001f52] transition-colors shadow-sm"
+          >
+            Approve & Notify
           </button>
         </div>
-
-        {/* VIEW DETAIL BUTTON */}
-        <button
-          onClick={() => router.push(`/screens/citizen-detail`)}
-          className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-[#002b73] text-white font-semibold text-sm rounded-lg hover:bg-[#001f52] transition"
-        >
-          View Full Profile
-        </button>
       </div>
     </div>
   );

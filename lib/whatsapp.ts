@@ -3,7 +3,7 @@ import pino from 'pino';
 import qrcode from 'qrcode-terminal';
 import { demoStore } from './store';
 
-// Mencegah Zombie Connection di Next.js saat Hot Reload
+// Mencegah Zombie Connection
 const globalForWA = global as unknown as { sock: any };
 
 function getSmartReply(text: string, citizenName: string): string {
@@ -25,7 +25,7 @@ function getSmartReply(text: string, citizenName: string): string {
     return `🤖 *SIGAP AI Asisten*\n\nHalo ${citizenName}! Saya adalah Asisten AI dari SIGAP. Ada yang bisa saya bantu terkait informasi bantuan sosial atau proses verifikasi Anda?`;
   }
   else {
-    // Fallback jika AI tidak mengerti pertanyaannya
+    // Fallback
     return `🤖 *SIGAP AI Asisten*\n\nMaaf, saya belum sepenuhnya mengerti maksud Anda. \n\nKetik *Status* untuk mengecek status verifikasi.\nKetik *Syarat* untuk melihat daftar dokumen bukti.\nAtau langsung kirimkan *Foto Bukti* Anda di sini.`;
   }
 }
@@ -67,7 +67,6 @@ export async function initWhatsApp() {
 
   sock.ev.on('creds.update', saveCreds);
 
-  // --- LISTENER: DETEKSI PESAN MASUK ---
   sock.ev.on('messages.upsert', async ({ messages, type }: any) => {
     if (type !== 'notify') return; 
     
@@ -75,17 +74,13 @@ export async function initWhatsApp() {
     if (!msg.message || msg.key.fromMe) return;
 
     const senderJid = msg.key.remoteJid;
-
-    // 1. Cek apakah pesan berisi Gambar atau Dokumen (Alur Verifikasi)
     const isImage = msg.message.imageMessage;
     const isDocument = msg.message.documentMessage;
     const isImageWithCaption = msg.message.extendedTextMessage?.contextInfo?.quotedMessage?.imageMessage;
-
-    // 2. Tangkap teks jika user mengirim pesan teks biasa
     const textMessage = msg.message.conversation || msg.message.extendedTextMessage?.text || "";
 
     if (isImage || isDocument || isImageWithCaption) {
-      console.log("📸 BUKTI FILE DITERIMA DARI WA PENGGUNA!");
+      console.log("BUKTI FILE DITERIMA DARI WA PENGGUNA!");
 
       demoStore.status = "Pending Review";
       demoStore.evidenceUploaded = true;
@@ -95,17 +90,14 @@ export async function initWhatsApp() {
       
     } 
     else if (textMessage) {
-      // JIKA USER MENGIRIM TEKS (PERTANYAAN)
-      console.log(`💬 User bertanya: "${textMessage}"`);
+      console.log(`User bertanya: "${textMessage}"`);
       
-      // Panggil fungsi Smart Mock AI
+      // Smart Mock AI
       const aiResponse = getSmartReply(textMessage, demoStore.citizenName);
-      
-      // Berikan efek "sedang mengetik..." (opsional, menambah realisme)
       await sock.sendPresenceUpdate('composing', senderJid);
       setTimeout(async () => {
         await sock.sendMessage(senderJid, { text: aiResponse });
-      }, 1500); // delay 1.5 detik agar terlihat seperti AI sedang berpikir
+      }, 1500); // delay 1.5s
     }
   });
 

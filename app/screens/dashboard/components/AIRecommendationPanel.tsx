@@ -19,7 +19,7 @@ export default function AIRecommendationPanel({ citizen, onClose }: any) {
       {/* HEADER */}
       <div className="bg-[#0056D2] p-6 text-white flex justify-between items-start">
         <div>
-          <p className="text-xs text-blue-200 font-bold uppercase">
+          <p className="text-xs text-blue-200 font-bold uppercase mb-1">
             AI Analysis Active
           </p>
 
@@ -27,9 +27,22 @@ export default function AIRecommendationPanel({ citizen, onClose }: any) {
             Focus Case: {aiCase?.name}
           </h3>
 
-          <p className="text-blue-200 text-sm font-mono">
-            ID: {aiCase?.id}
-          </p>
+          {/* ID & DESIL BADGE */}
+          <div className="flex items-center gap-3 mt-1.5">
+            <p className="text-blue-200 text-sm font-mono">
+              ID: {aiCase?.id}
+            </p>
+            
+            <span
+              className={`px-2 py-0.5 rounded text-xs font-bold shadow-sm ${
+                aiCase?.desil <= 4
+                  ? "bg-red-100 text-red-700" // Warna kontras merah untuk desil bawah
+                  : "bg-blue-50 text-[#0056D2]" // Warna biru muda untuk desil atas
+              }`}
+            >
+              Desil {aiCase?.desil ?? "-"}
+            </span>
+          </div>
         </div>
 
         <button onClick={onClose} className="text-white/70 hover:text-white text-xl">
@@ -106,11 +119,11 @@ export default function AIRecommendationPanel({ citizen, onClose }: any) {
 
         {/* ACTIONS */}
         <div className="flex flex-col gap-3">
-          <button className="w-full px-4 py-3 bg-[#0056D2] text-white rounded-lg font-semibold">
+          <button className="w-full px-4 py-3 bg-[#0056D2] text-white rounded-lg font-semibold shadow-sm hover:bg-[#0047b3] transition-colors">
             Approve
           </button>
 
-          <button className="w-full px-4 py-3 border border-red-500 text-red-500 rounded-lg font-semibold">
+          <button className="w-full px-4 py-3 border border-red-500 text-red-500 rounded-lg font-semibold hover:bg-red-50 transition-colors">
             Reject
           </button>
         </div>

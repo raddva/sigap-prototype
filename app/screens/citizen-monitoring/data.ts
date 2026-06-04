@@ -7,6 +7,7 @@ export const citizensData = [
     initials: "BS",
     img: "https://ui-avatars.com/api/?name=Budi+Santoso&background=random",
     region: "Jakarta Pusat",
+    desil: 2, // Tambahan Desil
     econScore: "-15%",
     econTrendIcon: "trending_down",
     econTrendColor: "text-[#ba1a1a]",
@@ -25,6 +26,7 @@ export const citizensData = [
     initials: "SA",
     img: "",
     region: "Surabaya",
+    desil: 5, // Tambahan Desil
     econScore: "-5%",
     econTrendIcon: "trending_flat",
     econTrendColor: "text-gray-500",
@@ -43,6 +45,7 @@ export const detailData = {
   name: "Budi Santoso",
   id: "320114567890002",
   avatar: "https://ui-avatars.com/api/?name=Budi+Santoso&background=random",
+  desil: 2, // Tambahan Desil untuk detail Budi Santoso
   confidence: "92%",
   summary: "System detected a significant drop in primary income indicators combined with recent medical expense anomalies reported via WhatsApp verification.",
   econScore: -15,

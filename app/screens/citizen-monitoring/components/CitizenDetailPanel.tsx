@@ -12,7 +12,7 @@ export default function CitizenDetailPanel({ citizen }: Props) {
 
   const triggerDemoAnomaly = async () => {
     const myPhoneNumber = process.env.NEXT_PUBLIC_MY_PHONE; 
-    alert('Simulasi Anomali Dimulai! Cek HP kamu.');    
+    alert('Pesan Terkirim!');    
     await fetch('/api/trigger-anomaly', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -47,15 +47,15 @@ export default function CitizenDetailPanel({ citizen }: Props) {
 
       {/* HEADER */}
       <div className="p-6 border-b border-gray-100 flex justify-between items-start">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           {citizen.img ? (
             <img
               src={citizen.img}
               alt={citizen.name}
-              className="w-12 h-12 rounded-full border border-gray-200 object-cover"
+              className="w-14 h-14 rounded-full border border-gray-200 object-cover"
             />
           ) : (
-            <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center font-bold text-gray-600">
+            <div className="w-14 h-14 rounded-full bg-gray-200 flex items-center justify-center font-bold text-gray-600">
               {citizen.initials}
             </div>
           )}
@@ -64,11 +64,20 @@ export default function CitizenDetailPanel({ citizen }: Props) {
             <h2 className="text-xl font-bold text-gray-900">
               {citizen.name}
             </h2>
-            <div className="flex items-center text-sm text-gray-500 gap-1">
-              <span className="material-symbols-outlined text-[16px]">
-                badge
-              </span>
-              {citizen.id}
+            {/* ID & DESIL BADGES */}
+            <div className="flex items-center text-sm text-gray-500 gap-3 mt-1">
+              <div className="flex items-center gap-1 bg-gray-100 px-2 py-0.5 rounded text-xs font-medium">
+                <span className="material-symbols-outlined text-[14px]">badge</span>
+                {citizen.id}
+              </div>
+              
+              {/* BADGE DESIL */}
+              <div className={`flex items-center gap-1 px-2 py-0.5 rounded text-xs font-bold ${
+                citizen.desil <= 4 ? "bg-red-100 text-red-700" : "bg-blue-100 text-blue-700"
+              }`}>
+                <span className="material-symbols-outlined text-[14px]">pie_chart</span>
+                Desil {citizen.desil ?? "-"}
+              </div>
             </div>
           </div>
         </div>
@@ -95,8 +104,7 @@ export default function CitizenDetailPanel({ citizen }: Props) {
           </div>
 
           <p className="text-sm text-gray-700 leading-relaxed mb-5">
-            {citizen.summary ??
-              "Citizen shows significant socioeconomic changes based on AI monitoring signals."}
+            {citizen.summary ?? `Warga terdeteksi berada pada kategori rentan (Desil ${citizen.desil ?? "-"}). Sistem mendeteksi adanya indikasi penurunan ekonomi yang signifikan berdasarkan sinyal pemantauan AI.`}
           </p>
 
           {/* SCORES */}
@@ -163,8 +171,10 @@ export default function CitizenDetailPanel({ citizen }: Props) {
 
             <div className="border border-gray-200 rounded-xl overflow-hidden relative group cursor-pointer">
               <img
-                src={citizen?.evidence?.[0]?.url || "/placeholder.jpg"}
-                className="w-full h-24 object-cover"
+                // Menggunakan fallback foto struk/dokumen generic dari Unsplash
+                src={citizen?.evidence?.[0]?.url || "https://images.unsplash.com/photo-1627843563095-f6e94676cfe0?q=80&w=400&auto=format&fit=crop"}
+                // Tambahkan blur-sm dan group-hover:blur-none agar efek blurnya hilang saat di-hover
+                className="w-full h-24 object-cover blur-[2px] group-hover:blur-none transition-all duration-300"
                 alt="Evidence"
               />
               <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
@@ -173,7 +183,7 @@ export default function CitizenDetailPanel({ citizen }: Props) {
                 </span>
               </div>
               <div className="absolute bottom-0 left-0 w-full bg-white/90 py-1 text-center text-xs font-medium text-gray-700">
-                Evidence.jpg
+                Struk_Bukti.jpg
               </div>
             </div>
           </div>

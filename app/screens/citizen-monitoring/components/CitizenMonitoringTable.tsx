@@ -32,6 +32,7 @@ export default function CitizenMonitoringTable({
             <tr>
               <th className="px-6 py-4">Citizen Name</th>
               <th className="px-6 py-4">Region</th>
+              <th className="px-6 py-4">Status</th>
               <th className="px-6 py-4">Economic Change Score</th>
               <th className="px-6 py-4">AI Recommendation</th>
               <th className="px-6 py-4">Verification Status</th>
@@ -41,8 +42,9 @@ export default function CitizenMonitoringTable({
           <tbody className="divide-y divide-gray-100 text-sm">
             {data.length === 0 ? (
               <tr>
+                {/* colSpan diubah menjadi 6 karena ada tambahan kolom baru */}
                 <td
-                  colSpan={5}
+                  colSpan={6}
                   className="text-center py-10 text-gray-400 text-sm"
                 >
                   No citizens found
@@ -90,6 +92,19 @@ export default function CitizenMonitoringTable({
                   {/* REGION */}
                   <td className="px-6 py-4 text-gray-700">
                     {citizen.region}
+                  </td>
+
+                  {/* DESIL (TAMBAHAN BARU) */}
+                  <td className="px-6 py-4">
+                    <span
+                      className={`inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold ${
+                        citizen.desil <= 4
+                          ? "bg-red-100 text-red-700" // Warna merah untuk desil bawah (prioritas bansos)
+                          : "bg-gray-100 text-gray-700" // Warna abu-abu untuk desil atas
+                      }`}
+                    >
+                      Desil {citizen.desil ?? "-"}
+                    </span>
                   </td>
 
                   {/* ECON SCORE */}

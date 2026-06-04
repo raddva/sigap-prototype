@@ -1,4 +1,3 @@
-// app/screens/dashboard/components/CitizenTable.tsx
 import React from "react";
 import { citizenQueueData } from "../data";
 import { AlertTriangle, CheckCircle2, Clock, Sparkles, XCircle } from "lucide-react";
@@ -59,6 +58,8 @@ export default function CitizenTable({ onSelectCitizen }: Props) {
           <thead className="bg-gray-50/50 text-gray-500 text-xs uppercase tracking-wider">
             <tr>
               <th className="px-6 py-4 font-semibold">Citizen</th>
+              {/* KOLOM DESIL DITAMBAHKAN DI SINI */}
+              <th className="px-6 py-4 font-semibold">Desil</th>
               <th className="px-6 py-4 font-semibold">Scores (Elig/Econ)</th>
               <th className="px-6 py-4 font-semibold">AI Status</th>
               <th className="px-6 py-4 font-semibold text-right">Action</th>
@@ -68,8 +69,8 @@ export default function CitizenTable({ onSelectCitizen }: Props) {
             {citizenQueueData.map((citizen) => (
               <tr 
                 key={citizen.id} 
-                className={`transition-colors group ${citizen.isActive ? "bg-blue-50/30" : "hover:bg-gray-50"}`}
-              onClick={() => onSelectCitizen?.(citizen)}
+                className={`transition-colors group cursor-pointer ${citizen.isActive ? "bg-blue-50/30" : "hover:bg-gray-50"}`}
+                onClick={() => onSelectCitizen?.(citizen)}
               >
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-3">
@@ -82,6 +83,20 @@ export default function CitizenTable({ onSelectCitizen }: Props) {
                     </div>
                   </div>
                 </td>
+                
+                {/* DATA DESIL DITAMBAHKAN DI SINI */}
+                <td className="px-6 py-4">
+                  <span
+                    className={`inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold ${
+                      citizen.desil <= 4
+                        ? "bg-red-100 text-red-700" 
+                        : "bg-gray-100 text-gray-700"
+                    }`}
+                  >
+                    Desil {citizen.desil ?? "-"}
+                  </span>
+                </td>
+
                 <td className="px-6 py-4">
                   <div className="flex flex-col gap-2 w-32">
                     <div className="flex items-center gap-2 text-xs text-gray-500">

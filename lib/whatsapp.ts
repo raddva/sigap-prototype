@@ -12,7 +12,7 @@ function getSmartReply(text: string, citizenName: string): string {
   if (lowerText.includes('status') || lowerText.includes('cek')) {
     return `🤖 *SIGAP AI Asisten*\n\nHalo ${citizenName}, status verifikasi Anda saat ini adalah: *${demoStore.status}*.\n\nJika status Anda "Pending Review", mohon tunggu petugas kami untuk melakukan validasi akhir.`;
   } 
-  else if (lowerText.includes('syarat') || lowerText.includes('dokumen apa')) {
+  else if (lowerText.includes('syarat') || lowerText.includes('dokumen')) {
     return `🤖 *SIGAP AI Asisten*\n\nUntuk proses verifikasi perubahan ekonomi, Anda dapat mengunggah salah satu dokumen berikut:\n1. Surat Keterangan PHK dari Perusahaan\n2. Foto Struk Tagihan Listrik terbaru\n3. Surat Keterangan Tidak Mampu (SKTM) dari Kelurahan\n\nSilakan kirimkan foto dokumen tersebut langsung di obrolan ini.`;
   }
   else if (lowerText.includes('bantuan') || lowerText.includes('bansos')) {

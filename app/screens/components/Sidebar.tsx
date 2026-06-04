@@ -9,7 +9,7 @@ const SCREENS = [
   { path: "/screens/citizen-monitoring", title: "Citizen Monitoring", icon: "supervised_user_circle" },
   // { path: "/screens/citizen-detail", title: "Citizen Detail", icon: "person" },
   { path: "/screens/analytics", title: "Analytics & Reporting", icon: "analytics" },
-  // { path: "/screens/ai-insights", title: "AI Insights", icon: "psychology" },
+  { path: "/screens/ai-insights", title: "AI Insights", icon: "psychology" },
   { path: "/screens/activity", title: "Activity Feed", icon: "history" },
   { path: "/screens/verification-requests", title: "Verification Requests", icon: "fact_check" },
   { path: "/screens/reports-center", title: "Reports Center", icon: "description" },

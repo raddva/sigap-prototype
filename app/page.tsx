@@ -1,5 +1,27 @@
+import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 
-export default function RootPage() {
+export default async function RootPage() {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/login");
+  }
+
+  const { data: admin } = await supabase
+    .from("admins")
+    .select("id")
+    .eq("id", user.id)
+    .single();
+
+  if (!admin) {
+    await supabase.auth.signOut();
+    redirect("/login");
+  }
+
   redirect("/screens/dashboard");
 }

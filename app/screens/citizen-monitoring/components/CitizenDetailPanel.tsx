@@ -5,33 +5,50 @@ import { useRouter } from "next/navigation";
 
 type Props = {
   citizen: any | null;
+  onClose?: () => void;
 };
 
-export default function CitizenDetailPanel({ citizen }: Props) {
+export default function CitizenDetailPanel({ citizen, onClose }: Props) {
   const router = useRouter();
 
   const triggerDemoAnomaly = async () => {
-    const myPhoneNumber = process.env.NEXT_PUBLIC_MY_PHONE; 
-    alert('Pesan Terkirim!');    
-    await fetch('/api/trigger-anomaly', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ phone: myPhoneNumber }) 
-    });
+    if (!citizen?.nik) return;
+    
+    alert('Mengirim pesan WhatsApp ke warga...');    
+    try {
+      const res = await fetch('/api/trigger-anomaly', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        // Sekarang kita kirim NIK, bukan hardcode nomor telepon
+        body: JSON.stringify({ nik: citizen.nik }) 
+      });
+      
+      const data = await res.json();
+      if (res.ok) {
+        alert('Pesan berhasil terkirim!');
+      } else {
+        alert(`Gagal mengirim pesan: ${data.error}`);
+      }
+    } catch (error) {
+      alert('Terjadi kesalahan jaringan.');
+    }
   };
 
   const handleAdminAction = async (action: 'approve' | 'reject') => {
+    if (!citizen?.nik) return;
+    
     alert(`Memproses ${action}... Sistem akan memberitahu warga via WhatsApp.`);
     await fetch('/api/action', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action })
+      // Kirim NIK agar backend tahu warga mana yang diupdate
+      body: JSON.stringify({ action, nik: citizen.nik })
     });
   };
 
   if (!citizen) {
     return (
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col h-full sticky top-8 items-center justify-center p-10 text-center">
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col h-full sticky top-8 items-center justify-center p-10 text-center min-h-[500px]">
         <span className="material-symbols-outlined text-gray-300 text-5xl mb-3">
           person_search
         </span>
@@ -42,21 +59,25 @@ export default function CitizenDetailPanel({ citizen }: Props) {
     );
   }
 
+  // Fallback inisial nama jika avatar tidak ada
+  const initials = citizen.name ? citizen.name.substring(0, 2).toUpperCase() : "NA";
+  // Ambil data AI jika ada
+  const aiData = citizen.ai_cases;
+
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col h-full sticky top-8">
-
       {/* HEADER */}
       <div className="p-6 border-b border-gray-100 flex justify-between items-start">
         <div className="flex items-center gap-4">
-          {citizen.img ? (
+          {citizen.avatar ? (
             <img
-              src={citizen.img}
+              src={citizen.avatar}
               alt={citizen.name}
               className="w-14 h-14 rounded-full border border-gray-200 object-cover"
             />
           ) : (
             <div className="w-14 h-14 rounded-full bg-gray-200 flex items-center justify-center font-bold text-gray-600">
-              {citizen.initials}
+              {initials}
             </div>
           )}
 
@@ -68,7 +89,7 @@ export default function CitizenDetailPanel({ citizen }: Props) {
             <div className="flex items-center text-sm text-gray-500 gap-3 mt-1">
               <div className="flex items-center gap-1 bg-gray-100 px-2 py-0.5 rounded text-xs font-medium">
                 <span className="material-symbols-outlined text-[14px]">badge</span>
-                {citizen.id}
+                {citizen.nik}
               </div>
               
               {/* BADGE DESIL */}
@@ -81,6 +102,13 @@ export default function CitizenDetailPanel({ citizen }: Props) {
             </div>
           </div>
         </div>
+        
+        {/* Tombol Close */}
+        {onClose && (
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-700">
+            <span className="material-symbols-outlined">close</span>
+          </button>
+        )}
       </div>
 
       {/* BODY */}
@@ -96,37 +124,33 @@ export default function CitizenDetailPanel({ citizen }: Props) {
               AI Summary
             </div>
 
-            <div className="bg-[#002b73] text-white px-3 py-1 rounded-full text-xs font-semibold text-center leading-tight">
-              {citizen.confidence ?? 87}%
+            <div className={`text-white px-3 py-1 rounded-full text-xs font-semibold text-center leading-tight ${aiData?.identity_match < 70 ? 'bg-orange-500' : 'bg-[#002b73]'}`}>
+              {aiData?.identity_match ?? 100}%
               <br />
               <span className="text-[10px] font-normal">Confidence</span>
             </div>
           </div>
 
           <p className="text-sm text-gray-700 leading-relaxed mb-5">
-            {citizen.summary ?? `Warga terdeteksi berada pada kategori rentan (Desil ${citizen.desil ?? "-"}). Sistem mendeteksi adanya indikasi penurunan ekonomi yang signifikan berdasarkan sinyal pemantauan AI.`}
+            {aiData?.anomaly_description ?? `Sistem tidak mendeteksi anomali pada warga ini (Desil ${citizen.desil ?? "-"}). Skor kelayakan dan ekonomi berada pada batas normal.`}
           </p>
 
           {/* SCORES */}
           <div className="space-y-4">
-
             {/* ECONOMIC SCORE */}
             <div>
               <div className="flex justify-between text-xs font-semibold text-gray-700 mb-1">
                 <span>Economic Change Score</span>
-                <span className="text-[#ba1a1a]">
-                  {citizen.econScore ?? 0}
+                <span className={citizen.economic_score < 0 ? "text-[#b06000]" : "text-[#ba1a1a]"}>
+                  {citizen.economic_score ?? 0}%
                 </span>
               </div>
 
               <div className="w-full h-1.5 bg-gray-200 rounded-full">
                 <div
-                  className="h-full bg-[#ba1a1a] rounded-full"
+                  className={`h-full rounded-full ${citizen.economic_score < 0 ? "bg-[#b06000]" : "bg-[#ba1a1a]"}`}
                   style={{
-                    width: `${Math.min(
-                      Math.abs(citizen.econScore ?? 0),
-                      100
-                    )}%`,
+                    width: `${Math.min(Math.abs(citizen.economic_score ?? 0), 100)}%`,
                   }}
                 />
               </div>
@@ -137,7 +161,7 @@ export default function CitizenDetailPanel({ citizen }: Props) {
               <div className="flex justify-between text-xs font-semibold text-gray-700 mb-1">
                 <span>Eligibility Score</span>
                 <span className="text-[#002b73]">
-                  {citizen.eligibilityScore ?? 0}/100
+                  {citizen.eligibility_score ?? 0}/100
                 </span>
               </div>
 
@@ -145,7 +169,7 @@ export default function CitizenDetailPanel({ citizen }: Props) {
                 <div
                   className="h-full bg-[#002b73] rounded-full"
                   style={{
-                    width: `${citizen.eligibilityScore ?? 0}%`,
+                    width: `${citizen.eligibility_score ?? 0}%`,
                   }}
                 />
               </div>
@@ -165,15 +189,13 @@ export default function CitizenDetailPanel({ citizen }: Props) {
                 description
               </span>
               <span className="text-xs font-medium text-gray-700">
-                Medical Bill.pdf
+                Data Utilities
               </span>
             </div>
 
             <div className="border border-gray-200 rounded-xl overflow-hidden relative group cursor-pointer">
               <img
-                // Menggunakan fallback foto struk/dokumen generic dari Unsplash
-                src={citizen?.evidence?.[0]?.url || "https://images.unsplash.com/photo-1627843563095-f6e94676cfe0?q=80&w=400&auto=format&fit=crop"}
-                // Tambahkan blur-sm dan group-hover:blur-none agar efek blurnya hilang saat di-hover
+                src="https://images.unsplash.com/photo-1627843563095-f6e94676cfe0?q=80&w=400&auto=format&fit=crop"
                 className="w-full h-24 object-cover blur-[2px] group-hover:blur-none transition-all duration-300"
                 alt="Evidence"
               />
@@ -188,74 +210,26 @@ export default function CitizenDetailPanel({ citizen }: Props) {
             </div>
           </div>
         </div>
-
-        {/* TIMELINE */}
-        <div>
-          <h3 className="text-sm font-bold text-gray-900 mb-4">
-            Verification Timeline
-          </h3>
-          <div className="relative ml-2 space-y-4 before:absolute before:left-3 before:top-0 before:h-full before:w-[2px] before:bg-gray-200">
-            {(citizen.timeline ?? [
-              { title: "Data Submitted", status: "done", time: "Today" },
-              { title: "AI Analysis", status: "current", time: "Now" },
-              { title: "Final Review", status: "pending", time: null },
-            ]).map((item: any, index: number) => (
-              <div
-                key={index}
-                className="relative flex items-start gap-4 pl-8"
-              >
-                {/* DOT */}
-                <div
-                  className={`absolute left-[7px] top-1.5 w-3 h-3 rounded-full border-2 border-white z-10 ${
-                    item.status === "current"
-                      ? "bg-[#b06000] ring-2 ring-[#fef7e0]"
-                      : item.status === "done"
-                      ? "bg-green-500"
-                      : "bg-gray-300"
-                  }`}
-                />
-                <div className="flex flex-col">
-                  <span
-                    className={`text-sm ${
-                      item.status === "current"
-                        ? "font-bold text-gray-900"
-                        : "font-medium text-gray-600"
-                    }`}
-                  >
-                    {item.title}
-                  </span>
-                  {item.time && (
-                    <span className="text-xs text-gray-400">
-                      {item.time}
-                    </span>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
 
       {/* ACTIONS */}
-      <div className="p-5 border-t border-gray-100 flex flex-col gap-3">
+      <div className="p-5 border-t border-gray-100 flex flex-col gap-3 mt-auto">
         <button
           onClick={triggerDemoAnomaly}
-          className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg text-sm font-bold hover:bg-green-800 transition-colors"
+          className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg text-sm font-bold hover:bg-green-800 transition-colors shadow-sm"
         >
           <span className="material-symbols-outlined text-[18px]">warning</span>
-          Send WhatsApp
+          Trigger WA Anomaly
         </button>
 
         <div className="flex gap-3">
-          {/* TOMBOL REJECT */}
           <button 
             onClick={() => handleAdminAction('reject')}
             className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 font-semibold text-sm rounded-lg hover:bg-red-50 hover:text-red-600 transition-colors"
           >
             Reject
           </button>
-
-          {/* TOMBOL APPROVE (Manual Review) */}
+          
           <button 
             onClick={() => handleAdminAction('approve')}
             className="flex-1 px-4 py-2 bg-[#002b73] text-white font-bold text-sm rounded-lg hover:bg-[#001f52] transition-colors shadow-sm"

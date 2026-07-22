@@ -7,7 +7,7 @@ import { ChevronLeft, ChevronRight, LogOut } from "lucide-react";
 const SCREENS = [
   { path: "/screens/dashboard", title: "Dashboard", icon: "dashboard" },
   { path: "/screens/citizen-monitoring", title: "Citizen Monitoring", icon: "supervised_user_circle" },
-  { path: "/screens/citizen-detail", title: "Citizen Detail", icon: "person" },
+  // { path: "/screens/citizen-detail", title: "Citizen Detail", icon: "person" },
   { path: "/screens/analytics", title: "Analytics & Reporting", icon: "analytics" },
   { path: "/screens/ai-insights", title: "AI Insights", icon: "psychology" },
   { path: "/screens/activity", title: "Activity Feed", icon: "history" },
@@ -15,7 +15,7 @@ const SCREENS = [
   { path: "/screens/reports-center", title: "Reports Center", icon: "description" },
   { path: "/screens/appeals", title: "Appeals & Complaints", icon: "gavel" },
   { path: "/screens/security-logs", title: "Security & Audit Logs", icon: "security" },
-  { path: "/screens/settings", title: "Settings", icon: "settings" },
+  // { path: "/screens/settings", title: "Settings", icon: "settings" },
 ];
 
 export default function Sidebar({

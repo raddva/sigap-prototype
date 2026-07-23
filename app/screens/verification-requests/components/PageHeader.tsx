@@ -21,7 +21,7 @@ export default function PageHeader() {
         </div>
         <div className="flex items-center gap-1.5 bg-[#e8f0fe] text-[#0056D2] px-3 py-1.5 rounded-full border border-[#0056D2]/20">
           <span className="material-symbols-outlined text-[14px]">cable</span>
-          <span className="text-xs font-bold">Baileys Integration: Connected</span>
+          <span className="text-xs font-bold">WhatsApp Integration: Connected</span>
         </div>
         <div className="flex items-center gap-1.5 bg-[#e8f0fe] text-[#0056D2] px-3 py-1.5 rounded-full border border-[#0056D2]/20">
           <span className="material-symbols-outlined text-[14px]">sync</span>

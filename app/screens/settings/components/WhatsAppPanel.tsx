@@ -10,7 +10,7 @@ export default function WhatsAppPanel() {
           <h2 className="text-2xl font-bold text-gray-900 mb-2" style={{ fontFamily: "Public Sans, sans-serif" }}>
             Communication Gateway
           </h2>
-          <p className="text-gray-500 text-sm">Manage the Baileys WhatsApp integration for citizen notifications.</p>
+          <p className="text-gray-500 text-sm">Manage the WhatsApp integration for citizen notifications.</p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -22,7 +22,7 @@ export default function WhatsAppPanel() {
                   <span className="material-symbols-outlined text-[#1b6d24]" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-gray-900">Baileys Connection</h3>
+                  <h3 className="text-sm font-bold text-gray-900">WA Connection</h3>
                   <p className="text-xs font-semibold text-[#1b6d24]">{whatsappStatus.status}</p>
                 </div>
               </div>

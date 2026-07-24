@@ -34,6 +34,14 @@ export default function CitizenDetailPanel({ citizen, onClose }: Props) {
     }
   };
 
+  const handleTriggerDemo = () => {
+    alert(
+      "⚠️ Feature Under Development\n\n" +
+      "The 'Trigger WA Anomaly' feature is designed to automatically send WhatsApp notifications to citizens when an economic anomaly is detected.\n\n" +
+      "This functionality is currently under active development (approximately 80% complete) and has been temporarily disabled in the public prototype for demonstration purposes."
+    );
+  };
+
   const handleAdminAction = async (action: 'approve' | 'reject') => {
     if (!citizen?.nik) return;
     
@@ -215,7 +223,7 @@ export default function CitizenDetailPanel({ citizen, onClose }: Props) {
       {/* ACTIONS */}
       <div className="p-5 border-t border-gray-100 flex flex-col gap-3 mt-auto">
         <button
-          onClick={triggerDemoAnomaly}
+          onClick={handleTriggerDemo}
           className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg text-sm font-bold hover:bg-green-800 transition-colors shadow-sm"
         >
           <span className="material-symbols-outlined text-[18px]">warning</span>

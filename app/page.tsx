@@ -2,26 +2,26 @@ import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 
 export default async function RootPage() {
-  const supabase = await createClient();
+  // const supabase = await createClient();
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  // const {
+  //   data: { user },
+  // } = await supabase.auth.getUser();
 
-  if (!user) {
-    redirect("/login");
-  }
+  // if (!user) {
+  //   redirect("/login");
+  // }
 
-  const { data: admin } = await supabase
-    .from("admins")
-    .select("id")
-    .eq("id", user.id)
-    .single();
+  // const { data: admin } = await supabase
+  //   .from("admins")
+  //   .select("id")
+  //   .eq("id", user.id)
+  //   .single();
 
-  if (!admin) {
-    await supabase.auth.signOut();
-    redirect("/login");
-  }
+  // if (!admin) {
+  //   await supabase.auth.signOut();
+  //   redirect("/login");
+  // }
 
   redirect("/screens/dashboard");
 }

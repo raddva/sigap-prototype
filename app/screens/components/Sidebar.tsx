@@ -92,7 +92,8 @@ export default function Sidebar({
       </nav>
       <div className="pt-4 border-t border-gray-100">
         <Link
-          href="/auth/logout"
+          // href="/auth/logout"
+          href="#"
           className={`
             w-full flex items-center rounded-lg py-2.5 transition-colors
             text-red-600 hover:bg-red-50

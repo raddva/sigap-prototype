@@ -58,11 +58,11 @@ export default function Topbar() {
 
           <div className="hidden lg:block leading-tight">
             <p className="text-sm font-bold text-gray-900">
-              {admin?.full_name ?? "Loading..."}
+              {admin?.full_name ?? "Admin"}
             </p>
 
             <p className="text-xs text-gray-500">
-              {admin?.role ?? ""}
+              {admin?.role ?? "System Administrator"}
             </p>
 
             {/* <p className="text-[10px] text-gray-400">
@@ -71,7 +71,8 @@ export default function Topbar() {
           </div>
 
           <Link
-            href="/auth/logout"
+            // href="/auth/logout"
+            href="#"
             className="rounded-lg p-2 hover:bg-red-50"
           >
             <LogOut

@@ -67,6 +67,41 @@ export default function CitizenDetailPanel({ citizen, onClose }: Props) {
     );
   }
 
+  const getDesilInfo = (desil: number) => {
+    switch (desil) {
+      case 1:
+        return {
+          label: "Very Poor",
+          color: "bg-red-100 text-red-700",
+        };
+
+      case 2:
+        return {
+          label: "Poor",
+          color: "bg-orange-100 text-orange-700",
+        };
+
+      case 3:
+        return {
+          label: "Lower Middle",
+          color: "bg-yellow-100 text-yellow-700",
+        };
+
+      case 4:
+        return {
+          label: "Upper Middle",
+          color: "bg-lime-100 text-lime-700",
+        };
+
+      default:
+        return {
+          label: "Prosperous",
+          color: "bg-blue-100 text-blue-700",
+        };
+    }
+  };
+
+  const desilInfo = getDesilInfo(citizen.desil);
   // Fallback inisial nama jika avatar tidak ada
   const initials = citizen.name ? citizen.name.substring(0, 2).toUpperCase() : "NA";
   // Ambil data AI jika ada
@@ -121,66 +156,127 @@ export default function CitizenDetailPanel({ citizen, onClose }: Props) {
 
       {/* BODY */}
       <div className="p-6 flex-1 overflow-y-auto flex flex-col gap-6">
-
-        {/* AI SUMMARY */}
-        <div className="bg-[#f0f4f8] rounded-xl p-5 border border-blue-100">
-          <div className="flex justify-between items-start mb-3">
-            <div className="flex items-center gap-2 text-[#002b73] font-bold text-sm">
-              <span className="material-symbols-outlined">
-                psychology
-              </span>
-              AI Summary
+        {/* PROFILE INFORMATION */}
+        <div className="border rounded-xl p-5">
+          <h3 className="text-sm font-bold text-gray-900 mb-4">
+            Citizen Information
+          </h3>
+          <div className="grid grid-cols-2 gap-y-4 gap-x-6 text-sm">
+            <div>
+              <p className="text-gray-500">Province</p>
+              <p className="font-semibold">
+                {citizen.province}
+              </p>
             </div>
-
-            <div className={`text-white px-3 py-1 rounded-full text-xs font-semibold text-center leading-tight ${aiData?.identity_match < 70 ? 'bg-orange-500' : 'bg-[#002b73]'}`}>
-              {aiData?.identity_match ?? 100}%
-              <br />
-              <span className="text-[10px] font-normal">Confidence</span>
+            <div>
+              <p className="text-gray-500">City</p>
+              <p className="font-semibold">
+                {citizen.city}
+              </p>
+            </div>
+            <div>
+              <p className="text-gray-500">Family Members</p>
+              <p className="font-semibold">
+                {citizen.family_members} Person
+              </p>
+            </div>
+            <div>
+              <p className="text-gray-500">Phone Number</p>
+              <p className="font-semibold">
+                {citizen.phone}
+              </p>
+            </div>
+            <div>
+              <p className="text-gray-500">Occupation</p>
+              <p className="font-semibold">
+                {citizen.occupation}
+              </p>
+            </div>
+            <div>
+              <p className="text-gray-500">Employment</p>
+              <p className="font-semibold">
+                {citizen.employment_status}
+              </p>
+            </div>
+            <div>
+              <p className="text-gray-500">Monthly Income</p>
+              <p className="font-semibold">
+                Rp {Number(citizen.monthly_income).toLocaleString("id-ID")}
+              </p>
+            </div>
+            <div>
+              <p className="text-gray-500">Monthly Expense</p>
+              <p className="font-semibold">
+                Rp {Number(citizen.monthly_expense).toLocaleString("id-ID")}
+              </p>
             </div>
           </div>
-
-          <p className="text-sm text-gray-700 leading-relaxed mb-5">
-            {aiData?.anomaly_description ?? `Sistem tidak mendeteksi anomali pada warga ini (Desil ${citizen.desil ?? "-"}). Skor kelayakan dan ekonomi berada pada batas normal.`}
-          </p>
-
-          {/* SCORES */}
-          <div className="space-y-4">
-            {/* ECONOMIC SCORE */}
+        </div>
+        {/* SOCIAL ASSISTANCE STATUS */}
+        <div className="border rounded-xl p-5">
+          <h3 className="text-sm font-bold text-gray-900 mb-4">
+            Social Assistance Status
+          </h3>
+          <div className="space-y-5">
             <div>
-              <div className="flex justify-between text-xs font-semibold text-gray-700 mb-1">
-                <span>Economic Change Score</span>
-                <span className={citizen.economic_score < 0 ? "text-[#b06000]" : "text-[#ba1a1a]"}>
-                  {citizen.economic_score ?? 0}%
+              <div className="flex justify-between text-xs mb-1">
+                <span>Eligibility Score</span>
+                <span className="font-bold text-[#002b73]">
+                  {citizen.eligibility_score}/100
                 </span>
               </div>
-
-              <div className="w-full h-1.5 bg-gray-200 rounded-full">
+              <div className="w-full h-2 rounded-full bg-gray-200">
                 <div
-                  className={`h-full rounded-full ${citizen.economic_score < 0 ? "bg-[#b06000]" : "bg-[#ba1a1a]"}`}
+                  className="h-full rounded-full bg-[#002b73]"
                   style={{
-                    width: `${Math.min(Math.abs(citizen.economic_score ?? 0), 100)}%`,
+                    width: `${citizen.eligibility_score}%`,
                   }}
                 />
               </div>
             </div>
-
-            {/* ELIGIBILITY SCORE */}
             <div>
-              <div className="flex justify-between text-xs font-semibold text-gray-700 mb-1">
-                <span>Eligibility Score</span>
-                <span className="text-[#002b73]">
-                  {citizen.eligibility_score ?? 0}/100
+              <div className="flex justify-between text-xs mb-1">
+                <span>Verification Confidence</span>
+                <span className="font-bold text-green-700">
+                  {citizen.verification_confidence}%
                 </span>
               </div>
-
-              <div className="w-full h-1.5 bg-gray-200 rounded-full">
+              <div className="w-full h-2 rounded-full bg-gray-200">
                 <div
-                  className="h-full bg-[#002b73] rounded-full"
+                  className="h-full rounded-full bg-green-600"
                   style={{
-                    width: `${citizen.eligibility_score ?? 0}%`,
+                    width: `${citizen.verification_confidence}%`,
                   }}
                 />
               </div>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-gray-500">
+                Desil Category
+              </span>
+              <span
+                className={`px-3 py-1 rounded-full text-xs font-bold ${desilInfo.color}`}
+              >
+                Desil {citizen.desil} • {desilInfo.label}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-gray-500">
+                Verification Status
+              </span>
+              <span className="font-semibold">
+                {citizen.verification_status}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-gray-500">
+                Last Verification
+              </span>
+              <span className="font-semibold">
+                {citizen.last_verification
+                  ? new Date(citizen.last_verification).toLocaleString("id-ID")
+                  : "-"}
+              </span>
             </div>
           </div>
         </div>
@@ -190,31 +286,22 @@ export default function CitizenDetailPanel({ citizen, onClose }: Props) {
           <h3 className="text-sm font-bold text-gray-900 mb-3">
             Uploaded Evidence
           </h3>
-
           <div className="grid grid-cols-2 gap-3">
-            <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 flex flex-col items-center justify-center gap-2 text-gray-500 hover:bg-gray-100 cursor-pointer">
-              <span className="material-symbols-outlined text-3xl">
+            <div className="bg-gray-50 border rounded-xl p-5 flex flex-col items-center justify-center">
+              <span className="material-symbols-outlined text-4xl text-[#002b73]">
                 description
               </span>
-              <span className="text-xs font-medium text-gray-700">
-                Data Utilities
-              </span>
+              <p className="text-xs mt-2 font-medium">
+                Income Report.pdf
+              </p>
             </div>
-
-            <div className="border border-gray-200 rounded-xl overflow-hidden relative group cursor-pointer">
-              <img
-                src="https://images.unsplash.com/photo-1627843563095-f6e94676cfe0?q=80&w=400&auto=format&fit=crop"
-                className="w-full h-24 object-cover blur-[2px] group-hover:blur-none transition-all duration-300"
-                alt="Evidence"
-              />
-              <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                <span className="material-symbols-outlined text-white">
-                  visibility
-                </span>
-              </div>
-              <div className="absolute bottom-0 left-0 w-full bg-white/90 py-1 text-center text-xs font-medium text-gray-700">
-                Struk_Bukti.jpg
-              </div>
+            <div className="bg-gray-50 border rounded-xl p-5 flex flex-col items-center justify-center">
+              <span className="material-symbols-outlined text-4xl text-[#002b73]">
+                badge
+              </span>
+              <p className="text-xs mt-2 font-medium">
+                Identity Card.jpg
+              </p>
             </div>
           </div>
         </div>

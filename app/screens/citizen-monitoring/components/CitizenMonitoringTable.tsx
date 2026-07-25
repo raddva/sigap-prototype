@@ -32,8 +32,8 @@ export default function CitizenMonitoringTable({
               <th className="px-6 py-4">Citizen Name</th>
               <th className="px-6 py-4">Region</th>
               <th className="px-6 py-4">Status (Desil)</th>
-              <th className="px-6 py-4">Economic Change</th>
-              <th className="px-6 py-4">AI Recommendation</th>
+              {/* <th className="px-6 py-4">Economic Change</th> */}
+              {/* <th className="px-6 py-4">AI Recommendation</th> */}
               <th className="px-6 py-4">Verification Status</th>
             </tr>
           </thead>
@@ -150,7 +150,7 @@ export default function CitizenMonitoringTable({
                     </td>
 
                     {/* ECONOMIC SCORE */}
-                    <td className="px-6 py-4">
+                    {/* <td className="px-6 py-4">
                       <span
                         className={`font-semibold flex items-center gap-1.5 ${econColor}`}
                       >
@@ -159,10 +159,10 @@ export default function CitizenMonitoringTable({
                           {econIcon}
                         </span>
                       </span>
-                    </td>
+                    </td> */}
 
                     {/* AI RECOMMENDATION */}
-                    <td className="px-6 py-4">
+                    {/* <td className="px-6 py-4">
                       <span
                         className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold ${aiBg} ${aiColor} border border-current/10`}
                       >
@@ -171,7 +171,7 @@ export default function CitizenMonitoringTable({
                         </span>
                         <span className="capitalize">{aiStatus}</span>
                       </span>
-                    </td>
+                    </td> */}
 
                     {/* VERIFICATION STATUS */}
                     <td className="px-6 py-4">

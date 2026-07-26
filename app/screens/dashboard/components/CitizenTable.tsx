@@ -106,7 +106,7 @@ export default function CitizenTable({ onSelectCitizen }: Props) {
             <tr>
               <th className="px-6 py-4 font-semibold">Citizen</th>
               <th className="px-6 py-4 font-semibold">Desil</th>
-              <th className="px-6 py-4 font-semibold">Scores (Elig/Econ)</th>
+              <th className="px-6 py-4 font-semibold">Eligibility Scores</th>
               <th className="px-6 py-4 font-semibold">Status</th>
               <th className="px-6 py-4 font-semibold text-right">Action</th>
             </tr>
@@ -150,7 +150,7 @@ export default function CitizenTable({ onSelectCitizen }: Props) {
                     <div className="flex flex-col gap-2 w-32">
                       {/* Eligibility Score Bar */}
                       <div className="flex items-center gap-2 text-xs text-gray-500">
-                        <span className="w-8">Elig:</span>
+                        {/* <span className="w-8">Elig:</span> */}
                         <div className="flex-1 h-1.5 bg-gray-200 rounded-full">
                           <div
                             className={`h-full rounded-full ${
@@ -159,11 +159,11 @@ export default function CitizenTable({ onSelectCitizen }: Props) {
                             style={{ width: `${citizen.eligibility_score}%` }}
                           ></div>
                         </div>
-                        <span className="w-6 text-right font-medium">{citizen.eligibility_score}</span>
+                        <span className="w-6 text-right font-medium">{citizen.eligibility_score}%</span>
                       </div>
                       
                       {/* Economic Score Bar */}
-                      <div className="flex items-center gap-2 text-xs text-gray-500">
+                      {/* <div className="flex items-center gap-2 text-xs text-gray-500">
                         <span className="w-8">Econ:</span>
                         <div className="flex-1 h-1.5 bg-gray-200 rounded-full">
                           <div
@@ -186,7 +186,7 @@ export default function CitizenTable({ onSelectCitizen }: Props) {
                             ? `+${citizen.economic_score}%`
                             : `${citizen.economic_score}%`}
                         </span>
-                      </div>
+                      </div> */}
                     </div>
                   </td>
 

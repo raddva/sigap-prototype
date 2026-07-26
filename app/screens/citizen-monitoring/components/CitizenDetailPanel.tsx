@@ -46,12 +46,12 @@ export default function CitizenDetailPanel({ citizen, onClose }: Props) {
     if (!citizen?.nik) return;
     
     alert(`Memproses ${action}... Sistem akan memberitahu warga via WhatsApp.`);
-    await fetch('/api/action', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      // Kirim NIK agar backend tahu warga mana yang diupdate
-      body: JSON.stringify({ action, nik: citizen.nik })
-    });
+    // await fetch('/api/action', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   // Kirim NIK agar backend tahu warga mana yang diupdate
+    //   body: JSON.stringify({ action, nik: citizen.nik })
+    // });
   };
 
   if (!citizen) {
@@ -254,11 +254,25 @@ export default function CitizenDetailPanel({ citizen, onClose }: Props) {
               <span className="text-sm text-gray-500">
                 Desil Category
               </span>
+
               <span
-                className={`px-3 py-1 rounded-full text-xs font-bold ${desilInfo.color}`}
+                className={`px-3 py-1 rounded-full text-xs font-bold ${
+                  citizen.desil <= 4
+                    ? "bg-red-100 text-red-700"
+                    : "bg-blue-100 text-blue-700"
+                }`}
               >
-                Desil {citizen.desil} • {desilInfo.label}
+                {citizen.desil_category}
               </span>
+            </div>
+            <div className="rounded-xl border border-gray-200 bg-gray-50 p-4">
+              <h4 className="text-sm font-semibold text-gray-900 mb-2">
+                Desil Information
+              </h4>
+
+              <p className="text-sm leading-6 text-gray-600">
+                {citizen.desil_description}
+              </p>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm text-gray-500">
@@ -314,7 +328,7 @@ export default function CitizenDetailPanel({ citizen, onClose }: Props) {
           className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg text-sm font-bold hover:bg-green-800 transition-colors shadow-sm"
         >
           <span className="material-symbols-outlined text-[18px]">warning</span>
-          Trigger WA Anomaly
+          Send WhatsApp Verification
         </button>
 
         <div className="flex gap-3">
@@ -329,7 +343,7 @@ export default function CitizenDetailPanel({ citizen, onClose }: Props) {
             onClick={() => handleAdminAction('approve')}
             className="flex-1 px-4 py-2 bg-[#002b73] text-white font-bold text-sm rounded-lg hover:bg-[#001f52] transition-colors shadow-sm"
           >
-            Approve & Notify
+            Approve Verification
           </button>
         </div>
       </div>
